@@ -165,61 +165,80 @@
     padding:6px 0 2px;
   }
 
-  ol.points-list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;}
-  ol.points-list li{
-    display:flex; align-items:center; gap:10px;
-    font-size:13.5px;
-    padding:7px 10px;
-    border-radius:8px;
-    background:rgba(22,35,58,.03);
+  .perimeter-note{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace; font-size:11px;
+    color:var(--ink-soft); text-transform:uppercase; letter-spacing:.03em;
+    margin:14px 0 10px;
   }
-  .plnum{
+
+  .point-cards{display:flex; flex-direction:column; gap:10px;}
+  .point-card{
+    border-radius:10px;
+    background:rgba(22,35,58,.03);
+    padding:12px 14px;
+  }
+  .pc-head{display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; margin-bottom:6px;}
+  .pc-num{
     flex:0 0 auto;
-    width:20px;height:20px;border-radius:50%;
-    color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600;
+    width:22px;height:22px;border-radius:50%;
+    color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:600;
     display:flex;align-items:center;justify-content:center;
   }
-  .plnum.paid{background:var(--terracotta);}
-  .plnum.free{background:var(--azulejo);}
-  .plname{flex:1; min-width:0;}
-  .plprice{
-    flex:0 0 auto;
-    font-family:'IBM Plex Mono',monospace; font-size:12px;
+  .pc-num.paid{background:var(--terracotta);}
+  .pc-num.free{background:var(--azulejo);}
+  .pc-name{font-family:'Fraunces',serif; font-weight:600; font-size:15px; color:var(--ink); margin:0;}
+  .pc-price{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--terracotta); font-weight:600;}
+  .pc-price.free{color:var(--azulejo); font-weight:500;}
+  .pc-desc{font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 8px;}
+  .pc-why{
+    font-size:12.5px; line-height:1.55;
+    background:var(--paper); border-radius:8px; padding:9px 11px;
+    margin:0 0 10px;
   }
-  .plprice.free{color:var(--azulejo);}
-  .plprice.paid{color:var(--terracotta); font-weight:600;}
-  ol.points-list a.plbuy{
-    font-family:'IBM Plex Mono',monospace;font-size:11.5px;
-    color:var(--terracotta); text-decoration:none;
-    border-bottom:1px solid var(--terracotta);
-    white-space:nowrap;
-  }
-  ol.points-list a.plbuy:hover{color:var(--ink);border-color:var(--ink);}
+  .pc-why b{color:var(--ochre); font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em; display:block; margin-bottom:3px;}
 
-  .videos{margin-top:16px; display:flex; flex-direction:column; gap:14px;}
-  .video-block{border-top:1px dashed var(--line); padding-top:12px;}
-  .video-label{
-    display:flex; align-items:center; gap:7px;
-    font-family:'IBM Plex Mono',monospace; font-size:11.5px;
-    color:var(--ink-soft); margin:0 0 8px;
-    text-transform:uppercase; letter-spacing:.03em;
+  .pc-more{margin:0 0 10px;}
+  .pc-more summary{
+    list-style:none; cursor:pointer;
+    font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:.03em;
+    color:var(--terracotta); font-weight:600;
+    display:flex; align-items:center; gap:6px;
+    padding:2px 0;
   }
-  .video-label .play{
-    width:15px;height:15px;border-radius:50%;
-    background:var(--terracotta); color:#fff;
-    display:inline-flex;align-items:center;justify-content:center;
-    font-size:8px; flex:0 0 auto;
+  .pc-more summary::-webkit-details-marker{display:none;}
+  .pc-more summary::before{content:"+"; font-size:14px; line-height:1; width:14px; text-align:center;}
+  .pc-more[open] summary::before{content:"–";}
+  .pc-more summary:hover{color:var(--ink);}
+  .pc-more-body{padding-top:10px;}
+  .pc-desc2{font-size:13px; line-height:1.6; color:var(--ink-soft); margin:0 0 10px;}
+  .pc-curio-label{
+    font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--ochre); margin:0 0 6px;
   }
-  .video-embed{position:relative; display:block; width:100%; padding-bottom:56.25%; height:0; border-radius:10px; overflow:hidden; background:#000 center/cover no-repeat; text-decoration:none;}
-  .video-embed .play-badge{
+  ul.pc-curio-list{margin:0 0 2px; padding-left:18px;}
+  ul.pc-curio-list li{font-size:12.5px; line-height:1.55; color:var(--ink-soft); margin-bottom:4px;}
+
+  .pc-footer{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  a.pc-link{
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+    color:#fff; background:var(--terracotta);
+    padding:6px 10px; border-radius:6px; text-decoration:none; display:inline-block;
+  }
+  a.pc-link:hover{background:var(--ink);}
+  .pc-video{
+    position:relative; display:block; width:140px; flex:0 0 auto; aspect-ratio:16/9;
+    border-radius:8px; overflow:hidden; background:#000 center/cover no-repeat; text-decoration:none;
+  }
+  .pc-video .play-badge{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:54px;height:54px;border-radius:50%;
+    width:30px;height:30px;border-radius:50%;
     background:rgba(22,35,58,.72); color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:18px;
+    display:flex;align-items:center;justify-content:center;font-size:11px;
     border:2px solid rgba(255,255,255,.85);
     transition:background .15s, transform .15s;
   }
-  .video-embed:hover .play-badge{background:var(--terracotta); transform:translate(-50%,-50%) scale(1.08);}
+  .pc-video:hover .play-badge{background:var(--terracotta); transform:translate(-50%,-50%) scale(1.08);}
 
   /* leaflet popup theming */
   .leaflet-popup-content-wrapper{border-radius:10px;}
@@ -257,7 +276,7 @@
   <div class="hero-inner">
     <p class="eyebrow">Barcelona · Sevilha · Córdoba · Madri · Toledo</p>
     <h1>17 dias pela Espanha</h1>
-    <p class="hero-route">Roteiro dia a dia com os pontos agrupados por proximidade. Toque em cada marcador do mapa para ver o valor da entrada e o link oficial de compra — e assista um vídeo logo abaixo de cada atração principal.</p>
+    <p class="hero-route">Roteiro dia a dia com os pontos agrupados por proximidade. Os números no mapa e nos cards são só para identificação — não indicam ordem de visita, e sim possibilidades dentro do perímetro daquele dia. Toque em cada marcador para ver preço e link de compra.</p>
     <div class="hero-legend">
       <span><i class="dot dot-paid"></i> Atração paga</span>
       <span><i class="dot dot-free"></i> Gratuita / sem ingresso</span>
@@ -282,25 +301,77 @@ const DATA = [
     days:[
       { num:1, title:'Barri Gòtic e Born', blurb:'Catedral, Boqueria e Museu Picasso — tudo a pé no centro histórico.',
         points:[
-          {name:'Catedral de Barcelona', lat:41.3839, lng:2.1760, price:null},
-          {name:'Plaça Sant Jaume', lat:41.3828, lng:2.1701, price:null},
-          {name:'Mercat de la Boqueria', lat:41.3818, lng:2.1716, price:null, note:'Entrada livre — pague pelo que consumir'},
-          {name:'Basílica Santa Maria del Mar', lat:41.3838, lng:2.1817, price:null},
-          {name:'Museu Picasso', lat:41.3851, lng:2.1809, price:'€19', link:'https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours', video:'XaDSAaSO60M'}
+          {name:'Catedral de Barcelona', lat:41.3839, lng:2.1760, price:null,
+            desc:'Catedral gótica do Barri Gòtic, com um claustro que abriga 13 gansos vivos — tradição centenária ligada a Santa Eulàlia, padroeira da cidade. É mais discreta que a Sagrada Família, mas fica bem no meio do trajeto entre os outros pontos do dia.',
+            why:'Não exige reserva nem fila longa — funciona como um respiro entre pontos mais disputados.',
+            desc2:'Sua construção começou em 1298 sobre uma mesquita que por sua vez havia substituído uma igreja visigótica, e levou mais de 150 anos para ficar pronta. A fachada principal, porém, é bem mais recente: só foi concluída em 1913, financiada por um industrial local, o que explica o contraste entre o gótico original e os detalhes neogóticos da frente.',
+            curio:['Os 13 gansos do claustro representam a idade em que Santa Eulàlia teria sido martirizada.','O nome oficial é Catedral da Santa Cruz e Santa Eulàlia.','Subir ao telhado custa um valor à parte e dá vista sobre o Barri Gòtic inteiro.']},
+          {name:'Plaça Sant Jaume', lat:41.3828, lng:2.1701, price:null,
+            desc:'Praça que concentra o poder político da Catalunha: de um lado o Palau de la Generalitat, do outro a Prefeitura de Barcelona. É pequena, mas o contraste entre as duas fachadas históricas vale a parada rápida.',
+            why:'Dá pra sentir o centro administrativo da cidade sem gastar tempo nem dinheiro — só atravessar a praça já conta a história.',
+            desc2:'A praça ocupa o antigo cruzamento das duas ruas principais da Barcino romana, o cardo e o decumano, então o local já era o centro simbólico da cidade há mais de dois mil anos. O Palau de la Generalitat, sede do governo catalão, e o Ajuntament, a prefeitura, se encaram há séculos como uma metáfora arquitetônica do equilíbrio de poder na Catalunha.',
+            curio:['Fica bem em cima do que foi o fórum da Barcino romana.','É palco tradicional das manifestações políticas mais importantes de Barcelona.','O pátio interno do Palau de la Generalitat é gótico e raramente aberto ao público.']},
+          {name:'Mercat de la Boqueria', lat:41.3818, lng:2.1716, price:null, note:'Entrada livre — pague pelo que consumir',
+            desc:'O mercado mais famoso de Barcelona, com bancas de frutas cortadas, sucos frescos, presunto ibérico e frutos do mar direto da lonja. É turístico, mas ainda funciona como mercado de verdade para quem mora perto.',
+            why:'Ótimo para um lanche rápido e barato no meio do passeio, sem precisar sentar num restaurante.',
+            desc2:'Existe informalmente desde o século XIII, quando açougueiros vendiam carne perto da antiga muralha da cidade, mas só ganhou a estrutura de ferro atual em 1840. Picasso, que morou perto dali quando jovem, frequentava o mercado, num bairro que moldou boa parte de sua formação artística antes da fama.',
+            curio:['O nome vem de "boc", bode em catalão, ligado ao antigo comércio de carne de cabra.','Tem mais de 300 bancas dentro de uma única nave coberta.','A entrada pela Rambla é decorada com um vitral colorido de 1914.']},
+          {name:'Basílica Santa Maria del Mar', lat:41.3838, lng:2.1817, price:null,
+            desc:'Considerada por muitos o exemplo mais puro de gótico catalão da cidade — erguida em tempo recorde para a época, por doação popular do bairro da Ribera, não da nobreza. O interior é surpreendentemente limpo e vertical.',
+            why:'Entrada gratuita e menos concorrida que a Catedral, mas com uma arquitetura que impressiona igual.',
+            desc2:'Foi erguida entre 1329 e 1383, prazo curto para um templo desse porte, porque os próprios moradores do bairro da Ribera, sobretudo estivadores do porto, carregaram as pedras nas costas como forma de doação. Essa origem popular, em vez de nobre ou eclesiástica, é a razão pela qual o interior é tão despojado e sem excesso decorativo.',
+            curio:['O romance "A Catedral do Mar", de Ildefonso Falcones, é inspirado na sua construção.','Sobreviveu a um incêndio em 1936, durante a Guerra Civil, que destruiu o altar original.','As colunas internas ficam a 13 metros de distância uma da outra, recorde para a época.']},
+          {name:'Museu Picasso', lat:41.3851, lng:2.1809, price:'€19', link:'https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours', video:'XaDSAaSO60M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museu_Picasso_Barcelona.JPG?width=300',
+            desc:'Reúne mais de 4.000 obras da juventude de Picasso, incluindo boa parte da série "Las Meninas", releitura do quadro de Velázquez. É a melhor forma de entender a formação do artista antes de ele virar "Picasso".',
+            why:'Mostra o lado menos óbvio do artista — o aprendiz, não o gênio já consagrado — dentro de um conjunto de palácios medievais que já vale a visita por si só.',
+            desc2:'A ideia partiu de Jaume Sabartés, secretário e amigo de infância de Picasso, que doou sua coleção pessoal em 1960. O próprio artista, então vivendo na França, gostou tanto da iniciativa que passou a doar obras regularmente, incluindo peças raras da juventude que normalmente não sairiam de coleções particulares.',
+            curio:['Foi o primeiro museu do mundo dedicado a Picasso, inaugurado ainda em vida do artista.','Ocupa cinco palácios medievais interligados na Carrer de Montcada.','A coleção completa das 58 variações de "As Meninas" de Velázquez está só aqui.']}
         ]},
       { num:2, title:'Gaudí, Eixample e Gràcia', blurb:'Sagrada Família, Sant Pau e os dois prédios de Gaudí no Passeig de Gràcia, terminando em Park Güell.',
         points:[
-          {name:'Sagrada Família', lat:41.4036, lng:2.1744, price:'€26', link:'https://sagradafamilia.org/en/tickets', video:'Zog4rk8kt8k'},
-          {name:'Recinte Modernista de Sant Pau', lat:41.4132, lng:2.1743, price:'€17', link:'https://santpaubarcelona.org/en/', video:'WpV7SD2HADg'},
-          {name:'Casa Batlló', lat:41.3917, lng:2.1649, price:'€29', link:'https://www.casabatllo.es/en/online-tickets/', video:'yFNLE5Thc-0'},
-          {name:'Casa Milà (La Pedrera)', lat:41.3954, lng:2.1619, price:'€25', link:'https://www.lapedrera.com/en/tickets/', video:'7M6eW-ES7-E'},
-          {name:'Park Güell', lat:41.4145, lng:2.1527, price:'€18', link:'https://parkguell.barcelona/en/buy-tickets', video:'2ZbTSnvaYWU'},
-          {name:'Bunkers del Carmel', lat:41.4204, lng:2.1601, price:null, note:'Mirador gratuito — ideal ao pôr do sol'}
+          {name:'Sagrada Família', lat:41.4036, lng:2.1744, price:'€26', link:'https://sagradafamilia.org/en/tickets', video:'Zog4rk8kt8k', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_03.jpg?width=300',
+            desc:'A obra-prima inacabada de Gaudí, em construção desde 1882. As duas fachadas — Natividade e Paixão — contam a mesma história em estilos opostos: uma orgânica e cheia de detalhes, a outra angular e dura.',
+            why:'É a experiência arquitetônica mais única de Barcelona — não existe nada parecido em nenhum outro lugar do mundo.',
+            desc2:'Gaudí assumiu o projeto em 1883, um ano depois do início das obras, e o reformulou quase por completo, misturando gótico com formas orgânicas inspiradas na natureza. Sabia que não veria a conclusão e chegou a dizer que "meu cliente não tem pressa", referindo-se a Deus. Morreu em 1926 atropelado por um bonde, sem nem metade da igreja construída.',
+            curio:['A torre central de Jesus Cristo só atingiu sua altura final em 2026, cem anos após a morte de Gaudí.','Parte dos planos originais foi destruída em um incêndio durante a Guerra Civil, em 1936.','A previsão de conclusão total, incluindo esculturas e decoração, é só para 2034.']},
+          {name:'Recinte Modernista de Sant Pau', lat:41.4132, lng:2.1743, price:'€17', link:'https://santpaubarcelona.org/en/', video:'WpV7SD2HADg', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/San_Pau_Hospital.jpg?width=300',
+            desc:'Ex-hospital modernista projetado por Domènech i Montaner, contemporâneo de Gaudí — um conjunto de pavilhões cobertos de mosaicos que funcionou como hospital até 2009. Fica a 10 minutos a pé da Sagrada Família.',
+            why:'É o modernismo catalão sem as filas da Sagrada Família — menos conhecido, igualmente impressionante.',
+            desc2:'O hospital original de Barcelona, fundado em 1401, ficava no centro histórico e não tinha mais espaço para crescer. O banqueiro Pau Gil doou fortuna suficiente para construir uma versão nova e maior, e pediu que fosse bonita, argumentando que ambientes agradáveis ajudavam pacientes a se recuperar mais rápido, ideia bem avançada pra época.',
+            curio:['Funcionou como hospital de verdade até 2009, quase um século inteiro.','Tem túneis subterrâneos que ligavam os pavilhões para o transporte discreto de pacientes.','Foi declarado Patrimônio da Humanidade pela UNESCO junto com o Palau de la Música, em 1997.']},
+          {name:'Casa Batlló', lat:41.3917, lng:2.1649, price:'€29', link:'https://www.casabatllo.es/en/online-tickets/', video:'yFNLE5Thc-0', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Batll%C3%B3_01.jpg?width=300',
+            desc:'A fachada mais fotografada do Passeig de Gràcia: ondulada, coberta de mosaico azul-esverdeado, com um telhado que lembra as costas de um dragão. Por dentro, quase não existe linha reta.',
+            why:'É a introdução mais acessível ao vocabulário visual de Gaudí — cores, curvas e simbolismo — antes de encarar algo maior como a Sagrada Família.',
+            desc2:'Antes de Gaudí reformar o prédio em 1904, era uma construção comum e sem graça. A família Batlló, têxteis ricos, queria algo que se destacasse na já competitiva Illa de la Discòrdia (quarteirão onde arquitetos rivais tinham prédios lado a lado), e Gaudí respondeu com uma fachada que parece derreter, inspirada supostamente na lenda de São Jorge e o dragão.',
+            curio:['O telhado curvo representa as costas escamadas do dragão, e a torre com cruz é a lança de São Jorge.','As máscaras das varandas deram à casa o apelido popular de "Casa dos Ossos".','Fica na mesma quadra que outros dois prédios modernistas rivais, formando a Illa de la Discòrdia.']},
+          {name:'Casa Milà (La Pedrera)', lat:41.3954, lng:2.1619, price:'€25', link:'https://www.lapedrera.com/en/tickets/', video:'7M6eW-ES7-E', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Mil%C3%A0_-_Barcelona,_Spain_-_Jan_2007.jpg?width=300',
+            desc:'Última obra civil de Gaudí, apelidada de "A Pedreira" pelos vizinhos que zombavam da fachada de pedra ondulada. O terraço tem chaminés esculpidas que teriam inspirado os soldados de Star Wars, segundo o próprio George Lucas.',
+            why:'O terraço costuma ser mais interessante que o de Casa Batlló — e geralmente tem fila menor.',
+            desc2:'Foi a última obra civil de Gaudí antes de ele se dedicar só à Sagrada Família. O empresário Pere Milà queria algo tão marcante quanto a Casa Batlló do vizinho, mas o resultado, uma fachada de pedra calcária ondulada sem nenhuma linha reta, foi tão estranho para os padrões de 1912 que os jornais da época zombaram chamando-a de pedreira.',
+            curio:['É Patrimônio da Humanidade desde 1984, um dos primeiros prédios de Gaudí a receber o título.','A garagem subterrânea foi uma das primeiras de Barcelona projetadas para automóveis.','George Lucas citou as chaminés do telhado como inspiração para os capacetes dos stormtroopers.']},
+          {name:'Park Güell', lat:41.4145, lng:2.1527, price:'€18', link:'https://parkguell.barcelona/en/buy-tickets', video:'2ZbTSnvaYWU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Park_G%C3%BCell_02.jpg?width=300',
+            desc:'Parque público desenhado por Gaudí como um bairro residencial de luxo que nunca decolou comercialmente — sobrou o parque, com bancos ondulados cobertos de mosaico, colunas que imitam troncos de árvore e a salamandra da escadaria de entrada.',
+            why:'A zona monumental é paga, mas o resto do parque — 17 hectares — é gratuito e menos concorrido, com uma das melhores vistas da cidade.',
+            desc2:'Eusebi Güell, empresário e mecenas de Gaudí, queria criar um bairro-jardim de luxo inspirado nas cidades-jardim inglesas, com 60 lotes para a elite de Barcelona. O projeto fracassou comercialmente, só duas casas foram vendidas, e a família doou o terreno inacabado à cidade em 1922, que o transformou no parque público que existe hoje.',
+            curio:['Apenas duas das 60 casas planejadas foram construídas; uma delas foi onde o próprio Gaudí morou.','A salamandra de mosaico na escada é popularmente apelidada de "El Drac".','Os bancos ondulados da praça principal tiveram participação do colaborador Josep Maria Jujol.']},
+          {name:'Bunkers del Carmel', lat:41.4204, lng:2.1601, price:null, note:'Mirador gratuito — ideal ao pôr do sol',
+            desc:'Um antigo bunker antiaéreo da Guerra Civil, hoje um mirante informal com vista de 360° sobre toda Barcelona — do mar até a serra de Collserola. Sem estrutura turística nenhuma: é chegar, sentar na alvenaria e aproveitar. Vale levar vinho, queijos e embutidos comprados num mercado local e fazer um piquenique ao pôr do sol.',
+            why:'Zero ingresso, zero fila, e a vista rivaliza com a de Montjuïc — só que sem estrutura de atração turística, então o clima é bem mais local e relaxado.',
+            desc2:'Foram construídos às pressas em 1937 e 1938, durante a Guerra Civil Espanhola, para abrigar canhões antiaéreos que defendiam Barcelona dos bombardeios da aviação franquista e italiana. Depois da guerra, famílias desabrigadas ocuparam a área e formaram um bairro informal ao redor das ruínas, desocupado só décadas depois.',
+            curio:['O nome oficial do local é Turó de la Rovira.','Foi ocupado como bairro informal até os anos 1990.','Hoje é considerado um dos points mais concorridos entre moradores locais ao pôr do sol.']}
         ]},
       { num:3, title:'Montjuïc', blurb:'MNAC e o castelo, com jardins e vista da cidade.',
         points:[
-          {name:'MNAC', lat:41.3684, lng:2.1543, price:'€12', link:'https://www.museunacional.cat/es/compra-de-entradas-online', video:'juGmnnuaTYs'},
-          {name:'Castell de Montjuïc (jardins)', lat:41.3633, lng:2.1660, price:null, note:'Jardins e exterior gratuitos'}
+          {name:'MNAC', lat:41.3684, lng:2.1543, price:'€12', link:'https://www.museunacional.cat/es/compra-de-entradas-online', video:'juGmnnuaTYs', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/(Barcelona)_Palau_Nacional_-_National_Museum_of_Art_of_Catalunya.jpg?width=300',
+            desc:'Ocupa o Palau Nacional, construído para a Exposição Universal de 1929, e reúne mil anos de arte catalã — do afresco românico medieval até Dalí e Miró. A escadaria da entrada já oferece uma das melhores vistas de Barcelona.',
+            why:'Menos concorrido que os museus do centro, com uma coleção de afrescos românicos que não existe em nenhum outro lugar do mundo.',
+            desc2:'O Palau Nacional foi construído para a Exposição Internacional de 1929 e era, originalmente, uma estrutura temporária que deveria ser demolida depois do evento. Acabou sendo poupado e, em 1934, veio a abrigar o museu de arte catalã, reunindo desde afrescos de igrejas românicas dos Pirenéus até obras de Dalí e Miró.',
+            curio:['Os afrescos românicos foram literalmente arrancados das paredes de igrejas remotas dos Pirenéus nos anos 1920 para evitar contrabando.','A cúpula do salão oval foi inspirada no Panteão de Roma.','A escadaria externa é palco do espetáculo gratuito da Font Màgica nas noites de fim de semana.']},
+          {name:'Castell de Montjuïc (jardins)', lat:41.3633, lng:2.1660, price:null, note:'Jardins e exterior gratuitos',
+            desc:'Fortaleza militar do século XVII no topo da colina de Montjuïc, com vista de 360° sobre o porto e a cidade. O interior tem um custo pequeno, mas os jardins e as muralhas externas são livres.',
+            why:'A subida — de funicular ou teleférico — já é parte do passeio, e a vista compensa mesmo sem entrar no castelo.',
+            desc2:'A fortaleza atual data de 1751, mas o local já tinha uma torre de vigia desde o século XVII. Durante boa parte do século XX, funcionou como prisão política e local de execuções, incluindo a do presidente catalão Lluís Companys, fuzilado ali em 1940 por ordem de Franco, o que faz do castelo um símbolo controverso na cidade.',
+            curio:['Foi prisão política até os anos 1960, com um passado pesado na memória catalã.','O teleférico que sobe até o castelo foi inaugurado para os Jogos Olímpicos de 1992.','Hoje pertence à prefeitura de Barcelona, não mais ao exército espanhol, desde 2007.']}
         ]},
       { num:4, title:'Vinícola', blurb:'Dia inteiro dedicado ao passeio de vinícola em Penedès — sem pontos fixos na cidade.', points:[] }
     ]
@@ -310,30 +381,95 @@ const DATA = [
     days:[
       { num:5, title:'Chegada em Sevilha', blurb:'Centro, Las Setas ao entardecer e Barrio de Santa Cruz.',
         points:[
-          {name:'Plaza Nueva', lat:37.3839, lng:-5.9958, price:null},
-          {name:'Las Setas (Metropol Parasol)', lat:37.3959, lng:-5.9926, price:'€16', link:'https://www.setasdesevilla.com', video:'S-nG2ZV8KdI'},
-          {name:'Barrio de Santa Cruz', lat:37.3856, lng:-5.9902, price:null}
+          {name:'Plaza Nueva', lat:37.3839, lng:-5.9958, price:null,
+            desc:'Praça central de Sevilha, ladeada por laranjeiras, com a Prefeitura de um lado. É o ponto de referência de onde partem a maioria dos passeios a pé pelo centro histórico.',
+            why:'Bom ponto de orientação e descanso rápido antes de seguir pro resto do roteiro do dia.',
+            desc2:'Até o século XIX, o terreno pertencia ao convento de San Francisco, um dos maiores da Espanha, demolido durante as políticas de desamortização (venda forçada de bens da Igreja) do governo liberal. A praça que ocupou o lugar virou o centro cívico da cidade moderna, com a estátua equestre de Fernando III, o rei que reconquistou Sevilha dos mouros em 1248, no meio.',
+            curio:['Ficava sobre o antigo Convento de San Francisco, demolido nos anos 1840.','A estátua central é de Fernando III, que tomou Sevilha dos mouros em 1248.','É o ponto zero tradicional de onde saem quase todos os tours a pé da cidade.']},
+          {name:'Las Setas (Metropol Parasol)', lat:37.3959, lng:-5.9926, price:'€16', link:'https://www.setasdesevilla.com', video:'S-nG2ZV8KdI', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Espacio_Parasol_Sevilla.jpg?width=300',
+            desc:'A maior estrutura de madeira do mundo, erguida sobre ruínas romanas e mouriscas descobertas durante a construção. O mirante no topo oferece uma vista de 360° rara em Sevilha, cidade sem muitos edifícios altos.',
+            why:'É a melhor vista da cidade ao entardecer — e um contraste e tanto com a arquitetura histórica do resto do roteiro.',
+            desc2:'O projeto nasceu de um concurso para revitalizar a Plaza de la Encarnación, que virava estacionamento havia décadas. Durante a escavação das fundações, em 2005, os operários encontraram um dos maiores conjuntos de ruínas romanas e mouriscas já achados em Sevilha, o que atrasou a obra em anos e forçou o projeto a incorporar um museu arqueológico subterrâneo, o Antiquarium.',
+            curio:['É considerada a maior estrutura de madeira do mundo.','As ruínas romanas descobertas na obra ficam expostas no Antiquarium, no subsolo.','Levou seis anos a mais que o previsto para ficar pronta, por causa dos achados arqueológicos.']},
+          {name:'Barrio de Santa Cruz', lat:37.3856, lng:-5.9902, price:null,
+            desc:'Antiga judiaria de Sevilha, hoje um labirinto de ruas estreitas, pátios floridos e praças minúsculas. Não tem um "ponto" específico — o interessante é se perder a pé sem pressa.',
+            why:'É onde Sevilha parece mais genuína — sem monumento nenhum no meio, só ruas e o dia a dia do bairro.',
+            desc2:'Era a judiaria de Sevilha até 1391, quando um pogrom violento forçou a conversão ou expulsão de praticamente toda a comunidade judaica da cidade. As ruas estreitas e sinuosas que hoje parecem charmosas foram, na verdade, desenhadas propositalmente estreitas na época mourisca para criar sombra e dificultar invasões.',
+            curio:['Foi a judiaria de Sevilha até o pogrom de 1391.','As ruas estreitas foram um recurso mourisco de sombreamento, não um acaso urbanístico.','Muitos pátios com grades de ferro ainda seguem o padrão andaluz de manter frescor no verão.']}
         ]},
       { num:6, title:'Centro histórico', blurb:'Catedral, Real Alcázar, Casa de Pilatos e flamenco à noite.',
         points:[
-          {name:'Catedral de Sevilha + Giralda', lat:37.3861, lng:-5.9931, price:'€13–15', link:'https://catedraldesevilla.es', video:'yl-FEVqiI-g'},
-          {name:'Real Alcázar', lat:37.3833, lng:-5.9903, price:'€15,50', link:'https://alcazarsevilla.org/', video:'aE_pWT8xA1M'},
-          {name:'Casa de Pilatos', lat:37.3900, lng:-5.9877, price:'€12', link:'https://fundacionmedinaceli.org/en/monuments/house-of-pilate/', video:'Of7nUtX7ofo'},
-          {name:'Archivo de Indias', lat:37.3844, lng:-5.9938, price:null},
-          {name:'Tablao Los Gallos (flamenco)', lat:37.3833, lng:-5.9884, price:'€38', link:'https://www.tablaolosgallos.com/entradas-flamenco/', video:'4kuaLwAC_18'}
+          {name:'Catedral de Sevilha + Giralda', lat:37.3861, lng:-5.9931, price:'€13–15', link:'https://catedraldesevilla.es', video:'yl-FEVqiI-g', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/La_Giralda,_Seville,_Spain_-_Sep_2009.jpg?width=300',
+            desc:'A maior catedral gótica do mundo, construída sobre os alicerces da antiga mesquita almóada — a torre Giralda, hoje campanário, era originalmente o minarete da mesquita. Dentro, o túmulo de Cristóvão Colombo é erguido por quatro estátuas.',
+            why:'É provavelmente a experiência histórica mais densa de Sevilha — cristianismo e islã, literalmente, na mesma construção.',
+            desc2:'Depois da reconquista cristã em 1248, a mesquita almóada continuou em uso por quase 150 anos até que o cabido decidiu demoli-la quase por completo para construir uma catedral tão grande que, segundo a lenda, os planejadores queriam que "a posteridade nos julgasse loucos". Só a Giralda, o antigo minarete, foi poupada e incorporada como torre sineira.',
+            curio:['É reconhecidamente a maior catedral gótica do mundo em volume.','A Giralda tem rampas em vez de escadas na parte inferior, feitas para o muezim subir a cavalo.','O túmulo de Colombo é sustentado por quatro estátuas representando os reinos da Espanha da época.']},
+          {name:'Real Alcázar', lat:37.3833, lng:-5.9903, price:'€15,50', link:'https://alcazarsevilla.org/', video:'aE_pWT8xA1M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Patio_de_la_Monteria_Palace_Pedro_I_Alcazar_Seville_Spain.jpg?width=300',
+            desc:'Palácio real ainda em uso pela família real espanhola, com arquitetura mudéjar que mistura influências mouriscas e cristãs. Os jardins são tão extensos que servem de fuga da agitação da cidade.',
+            why:'Provavelmente o monumento mais bonito de Sevilha — reserve com bastante antecedência, os ingressos esgotam rápido.',
+            desc2:'Começou como fortaleza mourisca no século IX, mas a estrutura atual deve sua fama ao rei cristão Pedro I, que no século XIV contratou artesãos mouriscos de Granada para construir seus próprios palácios dentro do complexo, mesmo já sendo um monarca católico. Esse estilo de arquitetura cristã feita por mãos e técnicas islâmicas tem nome próprio: mudéjar.',
+            curio:['É o palácio real mais antigo da Europa ainda em uso pela realeza.','Serviu de cenário para a cidade fictícia de Dorne em Game of Thrones.','Pedro I, que mandou construí-lo, é lembrado tanto como "o Justo" quanto como "o Cruel", dependendo da fonte.']},
+          {name:'Casa de Pilatos', lat:37.3900, lng:-5.9877, price:'€12', link:'https://fundacionmedinaceli.org/en/monuments/house-of-pilate/', video:'Of7nUtX7ofo', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_de_Pilatos,_Seville_36.JPG?width=300',
+            desc:'Considerada o protótipo do palácio andaluz — mistura mudéjar e renascentista italiano, com mais de 150 padrões diferentes de azulejo. Ainda é residência particular da família Medinaceli.',
+            why:'É um Real Alcázar em miniatura, com muito menos gente — ótimo complemento no mesmo dia.',
+            desc2:'O nome vem de uma lenda popular, não de fato histórico: dizia-se que suas proporções eram idênticas às da casa de Pôncio Pilatos em Jerusalém, depois que o primeiro Marquês de Tarifa fez uma peregrinação à Terra Santa em 1519 e voltou querendo recriar o percurso da Via Crucis em Sevilha, começando simbolicamente no próprio palácio.',
+            curio:['O nome é uma lenda; não há relação comprovada com Pôncio Pilatos.','Tem mais de 150 padrões diferentes de azulejo, um dos maiores acervos do tipo no mundo.','Ainda pertence e é parcialmente habitada pela família Medinaceli, uma das mais antigas da nobreza espanhola.']},
+          {name:'Archivo de Indias', lat:37.3844, lng:-5.9938, price:null,
+            desc:'Prédio renascentista que guarda os documentos originais da colonização espanhola nas Américas, desde diários de Colombo até mapas da época. É Patrimônio da Humanidade junto com a Catedral e o Alcázar.',
+            why:'Entrada gratuita e rápida de visitar — 20 minutos já bastam para sentir o peso histórico do arquivo.',
+            desc2:'Foi criado em 1785 pelo rei Carlos III, que reuniu documentos sobre a colonização espanhola das Américas espalhados por arquivos em Sevilha, Cádiz e Simancas, temendo que se perdessem. O prédio original, do século XVI, funcionava como bolsa de mercadores (Lonja), refletindo a época em que Sevilha monopolizava o comércio espanhol com as colônias.',
+            curio:['Guarda mais de 43.000 documentos e 8 milhões de páginas ligadas à colonização das Américas.','O prédio era originalmente a Lonja de Mercaderes, bolsa de comércio de Sevilha.','Documentos assinados por Colombo, Magalhães e Pizarro estão entre o acervo.']},
+          {name:'Tablao Los Gallos (flamenco)', lat:37.3833, lng:-5.9884, price:'€38', link:'https://www.tablaolosgallos.com/entradas-flamenco/', video:'4kuaLwAC_18',
+            desc:'O tablao mais antigo de Sevilha, em funcionamento desde 1966, no Barrio de Santa Cruz. O espetáculo reúne cantaores, bailaores e guitarristas num formato mais intimista que os grandes shows do centro.',
+            why:'É a forma mais autêntica de ver flamenco ao vivo em Sevilha, sem o exagero cenográfico de espetáculos maiores.',
+            desc2:'Abriu as portas em 1966, num momento em que o flamenco começava a ser tratado como espetáculo turístico formal em Sevilha, não só como tradição de bairro. A família fundadora manteve a casa na mesma Plaza de Santa Cruz por quase 60 anos, resistindo à tentação de aumentar a produção ou se mudar para um espaço maior.',
+            curio:['É o tablao mais antigo em atividade ininterrupta de Sevilha.','O espetáculo dura cerca de 1h15, mais longo que a média de outros tablaos.','Ainda é administrado pela mesma família que o fundou nos anos 1960.']},
+          {name:'La Terraza del EME', lat:37.3857, lng:-5.9925, price:'Reserva de mesa', link:'https://www.laterrazadeleme.com/en/',
+            desc:'No topo do Hotel EME Catedral, literalmente de frente para a Giralda. A reserva funciona como uma mesa com consumo mínimo pré-pago (bebidas do próprio cardápio), não um ingresso tradicional. É um dos poucos lugares de Sevilha onde dá pra ver a catedral inteira, iluminada à noite, a poucos metros de distância.',
+            why:'É a vista mais próxima e cinematográfica da Catedral de Sevilha que existe — sem entrar na fila do monumento, num ambiente de bar descontraído em vez de visita guiada.',
+            desc2:'O prédio que hoje é o Hotel EME Catedral já foi um convento e depois um edifício residencial comum antes da reforma que o transformou em hotel boutique em 2009. A proximidade extrema com a Giralda, a poucos metros, é resultado direto da localização histórica do quarteirão, sempre colado ao complexo religioso desde a época mourisca.',
+            curio:['O edifício ocupa parte do antigo Convento de la Encarnación.','A piscina no terraço é aberta o ano inteiro, mesmo no inverno.','O bar de coquetéis leva a assinatura de Javier de las Muelas, referência da coquetelaria espanhola.']}
         ]},
       { num:7, title:'Triana e rio', blurb:'Plaza de España, Parque de María Luisa e travessia até Triana.',
         points:[
-          {name:'Plaza de España', lat:37.3772, lng:-5.9869, price:null},
-          {name:'Parque de María Luisa', lat:37.3745, lng:-5.9880, price:null},
-          {name:'Mercado de Triana', lat:37.3838, lng:-6.0032, price:null, note:'Entrada livre'}
+          {name:'Plaza de España', lat:37.3772, lng:-5.9869, price:null,
+            desc:'Construída para a Exposição Ibero-Americana de 1929, é um semicírculo monumental com um canal navegável e azulejos representando cada província espanhola. Já apareceu em Star Wars: Episódio II.',
+            why:'É provavelmente o cartão-postal mais fotografado de Sevilha — e ainda assim vale a visita pessoalmente.',
+            desc2:'Foi construída como pavilhão principal da Exposição Ibero-Americana de 1929, evento pensado para reforçar os laços culturais entre a Espanha e suas ex-colônias latino-americanas. Os 48 bancos de azulejo ao redor representam cada província espanhola da época, e muitas famílias andaluzas ainda visitam o banco da própria província em passeios de domingo.',
+            curio:['Os 48 bancos de azulejo representam as províncias espanholas da época, em ordem alfabética.','Serviu de cenário para Star Wars: Episódio II e várias outras produções internacionais.','O canal ao redor da praça ainda pode ser navegado de barco a remo.']},
+          {name:'Parque de María Luisa', lat:37.3745, lng:-5.9880, price:null,
+            desc:'O principal parque público de Sevilha, doado pela infanta María Luisa Fernanda em 1893. Tem fontes, pavilhões remanescentes da Exposição de 1929 e sombra abundante de árvores centenárias.',
+            why:'Depois da Plaza de España, é o lugar certo pra desacelerar antes de seguir pra Triana.',
+            desc2:'Era o jardim particular do Palácio de San Telmo até 1893, quando a infanta María Luisa Fernanda doou a área para a cidade. O paisagista francês Jean-Claude Nicolas Forestier foi contratado décadas depois para redesenhar o parque especificamente para receber a Exposição Ibero-Americana de 1929, criando o estilo de jardim andaluz-mourisco que existe até hoje.',
+            curio:['Foi doado à cidade pela infanta María Luisa Fernanda de Bourbon, que dá nome ao parque.','O paisagista Forestier misturou influências mouriscas, francesas e românticas no redesenho de 1911.','Abriga pavilhões remanescentes de mais de 15 países que participaram da Exposição de 1929.']},
+          {name:'Mercado de Triana', lat:37.3838, lng:-6.0032, price:null, note:'Entrada livre',
+            desc:'Mercado erguido sobre as ruínas do Castelo de San Jorge, sede da Inquisição em Sevilha por séculos. Hoje reúne bancas de peixe, azulejaria tradicional — Triana é o bairro dos ceramistas — e bares de tapas.',
+            why:'Combina história, artesanato local e comida no mesmo lugar — bom fechamento pro dia em Triana.',
+            desc2:'Foi erguido sobre as ruínas do Castillo de San Jorge, sede da Inquisição espanhola em Sevilha entre os séculos XV e XIX, onde milhares de pessoas foram julgadas e presas. As fundações do castelo ainda são visíveis num pequeno centro de interpretação gratuito dentro do próprio mercado, um contraste e tanto com as bancas de peixe e cerâmica ao redor.',
+            curio:['Fica literalmente em cima das ruínas do antigo tribunal da Inquisição espanhola.','Triana é o bairro histórico dos ceramistas de Sevilha, tradição que remonta à época romana.','O centro de interpretação da Inquisição dentro do mercado tem entrada gratuita.']}
         ]},
       { num:8, title:'Córdoba (bate-volta)', blurb:'Trem AVE de ~45 min. Mezquita, Judería e Alcázar de los Reyes Cristianos.',
         points:[
-          {name:'Mezquita-Catedral de Córdoba', lat:37.8790, lng:-4.7794, price:'€15', link:'https://mezquita-catedraldecordoba.es/en/organiza-la-visita/entradas-y-horarios/', video:'Cz_6IhXBVRU'},
-          {name:'Judería (Calleja de las Flores)', lat:37.8794, lng:-4.7797, price:null},
-          {name:'Puente Romano', lat:37.8763, lng:-4.7794, price:null},
-          {name:'Alcázar de los Reyes Cristianos', lat:37.8778, lng:-4.7815, price:'€5', link:'https://museosdecordoba.sacatuentrada.es/es', video:'SOC2FjgcfLM'}
+          {name:'Mezquita-Catedral de Córdoba', lat:37.8790, lng:-4.7794, price:'€15', link:'https://mezquita-catedraldecordoba.es/en/organiza-la-visita/entradas-y-horarios/', video:'Cz_6IhXBVRU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Mezquita-catedral_de_C%C3%B3rdoba_interior_13.jpg?width=300',
+            desc:'Antiga grande mesquita de Córdoba, com uma floresta de mais de 850 colunas de mármore, granito e ônix. Uma catedral renascentista foi erguida literalmente dentro dela no século XVI — o resultado é um dos edifícios mais estranhos e fascinantes da Europa.',
+            why:'Não existe outro monumento na Espanha que resuma tão bem os séculos de convivência entre culturas — vale cada minuto.',
+            desc2:'Foi erguida a partir de 785 sobre uma antiga igreja visigótica, que por sua vez tinha sido erguida sobre um templo romano, reaproveitando o mesmo terreno sagrado por mais de mil anos. Quando os cristãos reconquistaram Córdoba em 1236, decidiram não demolir a mesquita, apenas inserir uma catedral renascentista no centro dela, décadas depois, o que gerou protestos até do próprio rei Carlos V.',
+            curio:['Carlos V, que autorizou a construção da catedral dentro da mesquita, depois se arrependeu publicamente ao ver o resultado.','Tem mais de 850 colunas de mármore, granito e ônix reaproveitadas de construções romanas e visigóticas.','Foi a segunda maior mesquita do mundo islâmico em sua época, atrás só da Grande Mesquita de Meca.']},
+          {name:'Judería — Calleja de las Flores e Calleja del Pañuelo', lat:37.8794, lng:-4.7797, price:null,
+            desc:'Duas vielas minúsculas do bairro judeu de Córdoba, com vasos de flores pendurados nas paredes brancas — a Calleja del Pañuelo é famosa por ser tão estreita que mal cabem duas pessoas lado a lado. Nas tabernas ao redor dá pra parar pra provar salmorejo (creme frio de tomate, mais grosso que gaspacho) e flamenquín (rolinho de presunto empanado e frito).',
+            why:'É o contraponto perfeito à Mezquita: em vez de mais um monumento grandioso, uma experiência de escala miúda e comida de rua genuína.',
+            desc2:'Córdoba teve uma das comunidades judaicas mais influentes da Europa medieval, incluindo o filósofo Maimônides, nascido ali em 1138. Depois da conversão forçada de 1391 e da expulsão final em 1492, o bairro foi ocupado por outras famílias, mas manteve o traçado estreito e labiríntico original, pensado para dar sombra e dificultar orientação de possíveis invasores.',
+            curio:['O filósofo judeu Maimônides nasceu nessa mesma região do bairro, em 1138.','A Calleja del Pañuelo tem esse nome porque, na lenda, um lenço aberto cobriria toda sua largura.','O bairro é Patrimônio da Humanidade desde 1994, junto com o centro histórico de Córdoba.']},
+          {name:'Puente Romano', lat:37.8763, lng:-4.7794, price:null,
+            desc:'Ponte romana do século I a.C. sobre o Guadalquivir, ainda de pé e hoje só para pedestres. A vista da Mezquita a partir do meio da ponte, especialmente ao entardecer, é um dos ângulos mais bonitos de Córdoba.',
+            why:'Gratuita, rápida de atravessar, e o melhor mirante para fotografar a Mezquita de fora.',
+            desc2:'Construído no século I a.C. sob ordens de Augusto, foi durante mais de 2000 anos a única forma de atravessar o Guadalquivir em Córdoba, usada até 2004, quando finalmente virou exclusiva para pedestres. Das arcadas originais, algumas foram reconstruídas ao longo dos séculos após enchentes, mas a estrutura de base ainda segue o traçado romano original.',
+            curio:['Ficou em uso para veículos até 2004, quase dois mil anos depois de construída.','Aparece na série Game of Thrones como a ponte de Volantis.','A Torre de la Calahorra, na outra margem, era parte do sistema defensivo árabe da ponte.']},
+          {name:'Alcázar de los Reyes Cristianos', lat:37.8778, lng:-4.7815, price:'€5', link:'https://museosdecordoba.sacatuentrada.es/es', video:'SOC2FjgcfLM', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Cordoba-Alcazar_de_los_Reyes_Cristianos003.JPG?width=300',
+            desc:'Fortaleza-palácio de onde os Reis Católicos planejaram a reconquista de Granada e receberam Cristóvão Colombo antes de sua viagem às Américas. Os jardins em terraços, com fontes e ciprestes, são um dos pontos mais fotogênicos de Córdoba.',
+            why:'Menos concorrido que a Mezquita, mas com uma história igualmente decisiva para a Espanha.',
+            desc2:'Foi construído em 1328 sobre as ruínas de um palácio califal anterior, e ganhou peso histórico decisivo em 1486, quando os Reis Católicos o usaram como base de operações para planejar a reconquista de Granada, o último reino mouro da península. Foi ali também que Cristóvão Colombo se encontrou pela primeira vez com os reis para apresentar seu plano de viagem às Índias.',
+            curio:['Foi de lá que os Reis Católicos comandaram a etapa final da Reconquista, contra Granada.','Colombo apresentou seu projeto de viagem marítima aos reis dentro desse próprio palácio.','Depois serviu de sede da Inquisição em Córdoba por mais de 300 anos.']}
         ]}
     ]
   },
@@ -342,41 +478,126 @@ const DATA = [
     days:[
       { num:9, title:'Chegada em Madri', blurb:'Puerta del Sol, Plaza Mayor e Mercado de San Miguel.',
         points:[
-          {name:'Puerta del Sol', lat:40.4169, lng:-3.7033, price:null},
-          {name:'Plaza Mayor', lat:40.4155, lng:-3.7074, price:null},
-          {name:'Mercado de San Miguel', lat:40.4153, lng:-3.7091, price:null, note:'Entrada livre'}
+          {name:'Puerta del Sol', lat:40.4169, lng:-3.7033, price:null,
+            desc:'O "quilômetro zero" da Espanha — todas as estradas radiais do país são medidas a partir daqui. Também é onde os madrilenhos se reúnem à meia-noite de 31 de dezembro para comer as 12 uvas da sorte.',
+            why:'É o ponto de referência central de Madri — bom lugar pra se situar antes de explorar o resto da cidade.',
+            desc2:'O nome vem de um antigo portão medieval na muralha de Madri, voltado para o leste, o sol nascente, demolido no século XVI quando a cidade cresceu além dos limites originais. Virou o centro simbólico do país só depois que Madri se tornou capital em 1561, e o marco do "quilômetro zero" foi instalado ali em 1950, formalizando o que já era tradição.',
+            curio:['O relógio da Puerta del Sol marca oficialmente as 12 badaladas de Ano Novo transmitidas por toda a Espanha.','O símbolo do urso e do medronheiro é o brasão oficial da cidade.','O marco do quilômetro zero, no chão, é um dos pontos mais pisados (e fotografados) da Espanha.']},
+          {name:'Plaza Mayor', lat:40.4155, lng:-3.7074, price:null,
+            desc:'Praça porticada do século XVII, construída sob Filipe III — cuja estátua equestre está no centro —, que já serviu de palco para touradas, execuções públicas e coroações. Hoje é dominada por cafés turísticos.',
+            why:'Arquitetonicamente impecável, mesmo bastante turística — vale pelo menos uma volta completa pelos arcos.',
+            desc2:'Foi projetada por Juan Gómez de Mora e inaugurada em 1620, substituindo um mercado popular a céu aberto que existia no mesmo local desde a Idade Média. Durante séculos, sediou desde touradas e torneios até os autos de fé da Inquisição, execuções públicas assistidas por milhares de pessoas nas próprias varandas dos apartamentos ao redor.',
+            curio:['Já foi palco de touradas, execuções públicas e autos de fé da Inquisição.','Sofreu três incêndios grandes ao longo da história, o último em 1790.','Tem 237 varandas voltadas para a praça, historicamente alugadas como camarotes de eventos.']},
+          {name:'Mercado de San Miguel', lat:40.4153, lng:-3.7091, price:null, note:'Entrada livre',
+            desc:'Mercado de ferro e vidro de 1916, hoje reformado como mercado gastronômico — bancas de tapas, vinho, ostras e doces em vez de hortifruti tradicional. É pequeno, então costuma ficar cheio.',
+            why:'Ótimo para provar várias coisas em porções pequenas sem comprometer com um restaurante inteiro.',
+            desc2:'A estrutura de ferro e vidro atual, de 1916, substituiu um mercado de madeira mais antigo que existia desde o século XIX no mesmo local. Passou por décadas de decadência como mercado de bairro comum até uma reforma em 2009 que o reposicionou como mercado gourmet, um modelo depois copiado por dezenas de outras cidades espanholas.',
+            curio:['É o único mercado de ferro do século XIX que sobrevive intacto em Madri.','Foi pioneiro no modelo de "mercado gourmet" que hoje existe em várias cidades espanholas.','Fica a poucos metros da Plaza Mayor, dentro do bairro mais antigo de Madri.']}
         ]},
       { num:10, title:'Centro real', blurb:'Palácio Real, Gran Vía e o mirador do Círculo de Bellas Artes.',
         points:[
-          {name:'Palácio Real', lat:40.4180, lng:-3.7143, price:'€18', link:'https://tickets.patrimonionacional.es/en/tickets/palacio-real-de-madrid', video:'WG6WEzrQskE'},
-          {name:'Catedral de la Almudena', lat:40.4155, lng:-3.7147, price:null},
-          {name:'Gran Vía / Callao', lat:40.4200, lng:-3.7052, price:null},
-          {name:'Círculo de Bellas Artes (azotea)', lat:40.4168, lng:-3.6975, price:'€5,50', link:'https://www.circulobellasartes.com', video:'DcavEPrw4g0'},
-          {name:'Templo de Debod', lat:40.4238, lng:-3.7178, price:null}
+          {name:'Palácio Real', lat:40.4180, lng:-3.7143, price:'€18', link:'https://tickets.patrimonionacional.es/en/tickets/palacio-real-de-madrid', video:'WG6WEzrQskE', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Royal_Palace_of_Madrid_08.JPG?width=300',
+            desc:'O maior palácio real da Europa Ocidental, com mais de 3.000 cômodos — embora a família real hoje viva no Palácio da Zarzuela e use este só para cerimônias oficiais. As Salas do Trono e a Real Armería são os destaques.',
+            why:'É maior e mais luxuoso que a maioria dos palácios europeus que os turistas conhecem — surpreende quem espera algo parecido com o de Buckingham.',
+            desc2:'O palácio anterior, um antigo alcácer mourisco reformado ao longo de séculos, pegou fogo na véspera de Natal de 1734 e foi completamente destruído. O rei Filipe V, primeiro da dinastia Bourbon na Espanha, decidiu reconstruir em pedra e mármore, não em madeira, especificamente para que nunca mais pegasse fogo, e o resultado foi um palácio maior que qualquer outro da Europa da época.',
+            curio:['Foi construído deliberadamente à prova de incêndio, depois que o palácio anterior queimou por completo.','A família real não mora mais lá desde 1962; hoje vive no Palácio da Zarzuela, menor.','Tem mais de 3.000 cômodos, mais que o Palácio de Buckingham e o de Versalhes juntos.']},
+          {name:'Catedral de la Almudena', lat:40.4155, lng:-3.7147, price:null,
+            desc:'Catedral relativamente nova — concluída só em 1993 e consagrada pelo Papa João Paulo II — erguida bem ao lado do Palácio Real. O teto neogótico colorido contrasta com a fachada mais neoclássica e discreta.',
+            why:'Rápida de visitar e gratuita — complementa bem a parada no Palácio Real sem tomar muito tempo.',
+            desc2:'Madri foi, até 1993, a única capital católica da Europa sem catedral própria, dependendo da diocese vizinha de Alcalá de Henares. As obras começaram em 1883, mas ficaram paradas por décadas por falta de dinheiro e pela Guerra Civil, e só foram retomadas com um projeto neoclássico simplificado nos anos 1950, resultando na mistura estilística visível hoje entre exterior e interior.',
+            curio:['Madri ficou sem catedral própria até 1993, quase um recorde entre capitais europeias católicas.','O teto colorido, em estilo neogótico, contrasta de propósito com a fachada neoclássica mais sóbria.','Foi a primeira catedral consagrada por um papa fora da Itália, no caso, João Paulo II.']},
+          {name:'Gran Vía / Callao', lat:40.4200, lng:-3.7052, price:null,
+            desc:'A principal avenida comercial de Madri, inaugurada em 1910 e às vezes chamada de "Broadway madrilenho" pela quantidade de teatros e luzes de neon. A arquitetura mistura art déco e neobarroco.',
+            why:'É a caminhada urbana mais cinematográfica de Madri — perfeita pra fazer a pé no fim da tarde.',
+            desc2:'Sua construção, iniciada em 1910, exigiu a demolição de mais de 50 ruas antigas do centro de Madri, projeto urbanístico tão drástico que ficou conhecido informalmente como "a Grande Via" antes mesmo de ganhar nome oficial. A obra levou 20 anos para ficar pronta, e cada trecho foi inaugurado com um estilo arquitetônico diferente, do art nouveau ao art déco.',
+            curio:['Demoliu mais de 50 ruas antigas para ser aberta, um dos maiores projetos urbanos da Madri do século XX.','Levou cerca de 20 anos para ser totalmente concluída, entre 1910 e 1929.','Já foi apelidada de "a Broadway espanhola" pela concentração histórica de teatros e cinemas.']},
+          {name:'Círculo de Bellas Artes (azotea)', lat:40.4168, lng:-3.6975, price:'€5,50', link:'https://www.circulobellasartes.com', video:'DcavEPrw4g0', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Circulo_de_Bellas_Artes_(Madrid).jpg?width=300',
+            desc:'Centro cultural privado fundado em 1880, coroado pela escultura de Minerva. O terraço no último andar oferece uma das vistas mais reconhecíveis de Madri, com o edifício Metrópolis e o cruzamento da Gran Vía com a Alcalá ao fundo.',
+            why:'É a vista panorâmica mais central de Madri — dá pra chegar a pé de quase qualquer ponto do centro.',
+            desc2:'Fundado em 1880 por um grupo de artistas que queria um espaço independente das academias oficiais, só ganhou sede própria em 1926, projetada pelo arquiteto Antonio Palacios, o mesmo por trás de vários marcos de Madri. A escultura de Minerva no topo, deusa romana da sabedoria e das artes, representa justamente a independência intelectual que a instituição buscava desde o início.',
+            curio:['A estátua de Minerva no topo pesa várias toneladas e foi instalada em partes, içada pelo lado de fora.','O edifício foi projetado pelo mesmo arquiteto do Palácio de Comunicações (hoje sede da prefeitura).','Já recebeu concertos de nomes como Pierre Boulez e Lila Downs ao longo de sua história.']},
+          {name:'Templo de Debod', lat:40.4238, lng:-3.7178, price:null,
+            desc:'Templo egípcio do século II a.C., doado à Espanha pelo Egito em agradecimento pela ajuda espanhola a salvar monumentos ameaçados pela construção da Represa de Assuã. É um dos poucos templos egípcios originais visitáveis fora do Egito.',
+            why:'Uma peça de história egípcia genuína, gratuita, no meio de Madri — o pôr do sol atrás do templo é um clássico da cidade.',
+            desc2:'Foi construído no Egito por volta do século II a.C. e ficaria submerso pelas águas do Lago Nasser após a construção da Represa de Assuã, nos anos 1960. Como parte de uma campanha internacional de resgate liderada pela UNESCO, o Egito doou o templo pedra por pedra a países que ajudaram a salvar outros monumentos ameaçados, e a Espanha o recebeu em 1968 como agradecimento.',
+            curio:['Foi doado pedra por pedra e remontado em Madri, mesmo processo usado no templo de Abu Simbel.','É um dos únicos quatro templos egípcios originais que existem fora do Egito.','Foi reinaugurado no local atual em 1972, no Parque do Oeste.']}
         ]},
       { num:11, title:'Triângulo do Prado', blurb:'Prado, Thyssen e Retiro — tudo a poucos minutos a pé.',
         points:[
-          {name:'Museo del Prado', lat:40.4138, lng:-3.6921, price:'€15', link:'https://entradas.museodelprado.es/', video:'G7Nmv8TQBHw'},
-          {name:'Museo Thyssen-Bornemisza', lat:40.4162, lng:-3.6942, price:'€14', link:'https://entradas.museothyssen.org/', video:'X91VYzecZ3U'},
-          {name:'Parque del Retiro', lat:40.4153, lng:-3.6844, price:null}
+          {name:'Museo del Prado', lat:40.4138, lng:-3.6921, price:'€15', link:'https://entradas.museodelprado.es/', video:'G7Nmv8TQBHw', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Vista_general_Museo_del_Prado.JPG?width=300',
+            desc:'O principal museu de arte da Espanha, com obras-primas de Velázquez ("As Meninas"), Goya (as Pinturas Negras) e Hieronymus Bosch ("O Jardim das Delícias"). A coleção reflete os gostos pessoais da monarquia espanhola ao longo de séculos.',
+            why:'Um dos museus de arte mais importantes do mundo — mesmo quem não é fã de museu costuma sair impressionado com "As Meninas".',
+            desc2:'O prédio foi encomendado em 1785 por Carlos III como Gabinete de História Natural, não como museu de arte, mas a Guerra da Independência contra Napoleão interrompeu as obras e deixou o edifício praticamente em ruínas por anos. Só reabriu como museu de pinturas em 1819, reunindo as coleções particulares da monarquia espanhola, já consideradas entre as mais ricas da Europa.',
+            curio:['Foi planejado originalmente como museu de história natural, não de arte.','Abrigou tropas de Napoleão durante a ocupação francesa, o que quase o destruiu.','"As Meninas" de Velázquez tem sua própria sala dedicada, considerada o coração do museu.']},
+          {name:'Museo Thyssen-Bornemisza', lat:40.4162, lng:-3.6942, price:'€14', link:'https://entradas.museothyssen.org/', video:'X91VYzecZ3U', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Fontana_Thyssen-Bornemisza_Museum.jpg?width=300',
+            desc:'Coleção particular que percorre sete séculos de pintura europeia num só edifício — do gótico primitivo ao pop art de Lichtenstein, passando por impressionistas que o Prado não tem.',
+            why:'É bem menor que o Prado, então dá pra ver tudo em 1h30-2h, sem a fadiga de museu que costuma afastar quem não curte esse tipo de passeio.',
+            desc2:'O barão Hans Heinrich Thyssen-Bornemisza herdou parte da coleção do pai em 1947 e passou décadas comprando obras até se tornar a segunda maior coleção particular de arte do mundo, atrás só da British Royal Collection. Nos anos 1980, vários países disputaram abrigar a coleção; a Espanha venceu, em parte por influência da esposa do barão, a ex-Miss Espanha Carmen Cervera.',
+            curio:['Foi considerada, em seu auge, a segunda maior coleção de arte particular do mundo.','A Espanha comprou a coleção principal por cerca de 350 milhões de dólares em 1993.','A baronesa Carmen Cervera ainda empresta obras de sua coleção pessoal ao museu.']},
+          {name:'Parque del Retiro', lat:40.4153, lng:-3.6844, price:null,
+            desc:'Antigo jardim real, hoje o principal parque público de Madri, com o Palacio de Cristal, um lago para passeio de barco e a estátua do Anjo Caído — uma das poucas estátuas do mundo dedicadas explicitamente a Lúcifer.',
+            why:'Depois de dois museus seguidos, é o respiro perfeito — dá pra alugar um barquinho no lago em vez de mais uma sala de quadros.',
+            desc2:'Começou como jardim privado do Palácio do Buen Retiro, construído por Filipe IV no século XVII como refúgio de caça e lazer da corte, isolado do resto da cidade por muros altos. Só foi aberto ao público em 1868, após a revolução que derrubou a rainha Isabel II, quando os jardins reais passaram a ser vistos como símbolo de privilégio a ser democratizado.',
+            curio:['Só se tornou parque público em 1868, depois de mais de 200 anos como jardim privado da coroa.','O Palácio de Cristal foi construído em 1887 para uma exposição sobre as Filipinas, então colônia espanhola.','A estátua do Anjo Caído é uma das poucas no mundo dedicadas oficialmente a Lúcifer em espaço público.']}
         ]},
       { num:12, title:'Reina Sofía e bairros', blurb:'Guernica de Picasso, depois Malasaña e Chueca.',
         points:[
-          {name:'Museo Reina Sofía', lat:40.4079, lng:-3.6943, price:'€12', link:'https://entradas.museoreinasofia.es/', video:'Y1TYe0gRtS4'},
-          {name:'Malasaña (Pl. Dos de Mayo)', lat:40.4258, lng:-3.7027, price:null},
-          {name:'Chueca / Salesas', lat:40.4227, lng:-3.6962, price:null}
+          {name:'Museo Reina Sofía', lat:40.4079, lng:-3.6943, price:'€12', link:'https://entradas.museoreinasofia.es/', video:'Y1TYe0gRtS4', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museo_Reina_Sofia-exterior.jpg?width=300',
+            desc:'Museu de arte moderna e contemporânea espanhola, mais conhecido por abrigar o Guernica de Picasso — o mural que retrata o bombardeio da cidade basca durante a Guerra Civil. Também tem obras de Dalí e Miró.',
+            why:'O Guernica sozinho já justifica a visita — é uma das obras mais politicamente carregadas da história da arte, vista de perto.',
+            desc2:'O prédio principal era um hospital geral desde o século XVIII, funcionando até os anos 1960, quando foi condenado à demolição. Um grupo de arquitetos impediu a derrubada e converteu o espaço em centro cultural nos anos 1980; o Guernica só chegou ao museu em 1992, depois de décadas guardado no MoMA de Nova York por exigência do próprio Picasso, que recusava enviá-lo à Espanha enquanto durasse a ditadura franquista.',
+            curio:['O Guernica ficou guardado no MoMA de Nova York por décadas, por exigência do próprio Picasso, até o fim da ditadura.','O prédio era um hospital que quase foi demolido nos anos 1960.','As torres de vidro externas, de 1989, foram um projeto do arquiteto britânico Ian Ritchie.']},
+          {name:'Malasaña (Pl. Dos de Mayo)', lat:40.4258, lng:-3.7027, price:null,
+            desc:'Bairro que virou símbolo da movida madrilenha nos anos 1980, hoje cheio de brechós, cafés de especialidade e lojas de design independente. A Plaza del Dos de Mayo lembra a revolta popular contra a ocupação napoleônica em 1808.',
+            why:'É o Madri mais jovem e menos monumental — bom contraste depois de uma manhã inteira de museu.',
+            desc2:'O bairro leva o nome de Manuela Malasaña, jovem costureira de 17 anos morta pelas tropas napoleônicas durante o levante popular de 2 de maio de 1808, evento que a Plaza del Dos de Mayo também homenageia. Séculos depois, nos anos 1980, o bairro voltou a ser palco de rebeldia cultural, dessa vez como epicentro da Movida Madrileña, o movimento contracultural pós-ditadura de Franco.',
+            curio:['Leva o nome de Manuela Malasaña, morta aos 17 anos durante a revolta contra Napoleão em 1808.','Foi o epicentro da Movida Madrileña, cena cultural e musical dos anos 1980 pós-Franco.','Pedro Almodóvar começou sua carreira frequentando os bares e cinemas do bairro nessa época.']},
+          {name:'Chueca / Salesas', lat:40.4227, lng:-3.6962, price:null,
+            desc:'Bairro vizinho a Malasaña, historicamente o coração LGBTQ+ de Madri, hoje também conhecido pela concentração de lojas de design e uma cena gastronômica em ascensão ao redor das Salesas.',
+            why:'Complementa Malasaña sem repetir o mesmo clima — mais elegante, com boas opções pra um café da tarde.',
+            desc2:'O bairro das Salesas cresceu ao redor do convento e igreja homônimos, construídos no século XVIII pela rainha Bárbara de Bragança. Já Chueca, seu vizinho, passou por décadas de decadência até os anos 1990, quando a comunidade LGBTQ+ de Madri começou a se instalar na região, revitalizando o comércio local e transformando o bairro num dos símbolos mais visíveis da liberdade conquistada após a redemocratização espanhola.',
+            curio:['Virou o principal bairro LGBTQ+ de Madri a partir dos anos 1990.','O convento das Salesas Reales foi fundado pela rainha Bárbara de Bragança no século XVIII.','A Orgulho de Madri, sediado no bairro, é um dos maiores eventos LGBTQ+ da Europa.']}
         ]},
       { num:13, title:'Dia livre', blurb:'Se cair domingo: El Rastro pela manhã + tapeo em La Latina.',
         points:[
-          {name:'El Rastro', lat:40.4088, lng:-3.7075, price:null, note:'Feira de rua — só domingo de manhã'},
-          {name:'La Latina (Cava Baja)', lat:40.4113, lng:-3.7096, price:null}
+          {name:'El Rastro', lat:40.4088, lng:-3.7075, price:null, note:'Feira de rua — só domingo de manhã',
+            desc:'A maior feira de rua de Madri, todo domingo de manhã, espalhada por várias quadras ao redor da Ribera de Curtidores. Vende de tudo — antiguidades, roupa vintage, discos, bugigangas — num clima de caos organizado.',
+            why:'É a versão madrilenha mais genuína de "ir ao mercado de domingo" — mesmo sem comprar nada, vale pela experiência.',
+            desc2:'Existe desde pelo menos o século XV, quando começou como feira ligada aos matadouros da região (o nome "rastro" vem do rastro de sangue que os animais deixavam sendo arrastados pela rua). Ao longo dos séculos, virou ponto de venda de tudo que Madri tinha para descartar ou revender, e sobreviveu a tentativas de proibição em praticamente todas as épocas da cidade.',
+            curio:['O nome vem do rastro de sangue dos animais arrastados dos antigos matadouros da região.','É considerada uma das feiras de rua mais antigas ainda em atividade na Europa.','Funciona só aos domingos e feriados pela manhã, encerrando por volta das 15h.']},
+          {name:'La Latina — Ruta del Vermut (Cava Baja)', lat:40.4113, lng:-3.7096, price:null,
+            desc:'Em vez de escolher um restaurante fixo, a tradição madrilenha é ir de bar em bar pela Calle Cava Baja pedindo um vermute de grifo (tirado na hora, não engarrafado) acompanhado de uma tapa rápida. Casa Lucas e La Tavernier são dois clássicos do trajeto, cada um com sua especialidade.',
+            why:'É como os próprios madrilenhos almoçam aos domingos — mais sobre o ritual social do que sobre qualquer prato específico, e não exige reserva.',
+            desc2:'O bairro leva o nome de Beatriz Galindo, apelidada "La Latina" por seu domínio do latim, professora da rainha Isabel a Católica no século XV. A tradição do vermute, bebida fortificada com ervas, servida de barril, chegou à Espanha via Itália no século XIX e virou ritual fixo do almoço de domingo, especialmente em bairros populares como este, onde os bares mantêm a receita de barril até hoje.',
+            curio:['O bairro leva o nome de Beatriz Galindo, tutora de latim da rainha Isabel a Católica.','A tradição do "vermú de domingo" remonta ao século XIX e é praticamente um ritual sagrado em Madri.','A Calle Cava Baja concentra uma das maiores quantidades de bares históricos por metro quadrado da cidade.']}
         ]},
       { num:14, title:'Toledo (bate-volta)', blurb:'Trem de ~30 min. Táxi da estação até o Mirador del Valle, depois centro histórico a pé.',
         points:[
-          {name:'Mirador del Valle', lat:39.8536, lng:-4.0231, price:null},
-          {name:'Catedral de Toledo', lat:39.8578, lng:-4.0244, price:'€12', link:'https://www.catedralprimada.es/visita-cultural/entradas-catedral-toledo/', video:'lgPxpDyVq1A'},
-          {name:'Alcázar de Toledo (Museu do Exército)', lat:39.8590, lng:-4.0219, price:null, note:'Verificar tarifa atual no local'},
-          {name:'Sinagoga de Santa María la Blanca', lat:39.8593, lng:-4.0294, price:'€4', link:'https://toledomonumental.com/sinagoga-de-santa-maria-la-blanca/', video:'0CIb44UNNeQ'}
+          {name:'Mirador del Valle', lat:39.8536, lng:-4.0231, price:null,
+            desc:'Mirante do outro lado do rio Tejo, de frente para a silhueta inteira de Toledo — a mesma vista que El Greco pintou em "Vista de Toledo". É o ângulo clássico de cartão-postal da cidade.',
+            why:'É a primeira impressão certa de Toledo — melhor ver a cidade de fora antes de entrar nela.',
+            desc2:'O ponto exato de onde El Greco pintou sua famosa "Vista de Toledo", por volta de 1600, fica muito perto desse mirante, do outro lado do rio Tejo. A obra é considerada uma das primeiras paisagens urbanas puras da história da arte ocidental, sem cena bíblica ou histórica em primeiro plano, e está hoje no Metropolitan Museum de Nova York.',
+            curio:['É praticamente o mesmo ângulo que El Greco pintou em "Vista de Toledo", por volta de 1600.','O quadro original de El Greco está hoje no Metropolitan Museum, em Nova York.','O rio Tejo forma uma curva quase fechada ao redor da cidade, motivo pelo qual Toledo virou fortaleza natural.']},
+          {name:'Catedral de Toledo', lat:39.8578, lng:-4.0244, price:'€12', link:'https://www.catedralprimada.es/visita-cultural/entradas-catedral-toledo/', video:'lgPxpDyVq1A', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Toledo,_Spain_-_exterior_1.JPG?width=300',
+            desc:'Catedral gótica considerada a "Primada da Espanha" — sede simbólica da Igreja Católica no país. Guarda obras de El Greco na sacristia e o Transparente, um altar barroco iluminado por uma claraboia escondida no teto.',
+            why:'É uma das catedrais mais ricas da Espanha em detalhes escondidos — vale contratar ou baixar um guia pra não passar batido pelas melhores partes.',
+            desc2:'Foi construída sobre uma mesquita maior, que por sua vez tinha sido erguida sobre uma igreja visigótica anterior, seguindo o mesmo padrão de reaproveitamento religioso visto em Córdoba e Sevilha. As obras começaram em 1226 e levaram quase 270 anos para terminar, e o título de "Primada da Espanha" garante ao arcebispo de Toledo precedência simbólica sobre todos os outros bispos do país.',
+            curio:['Levou quase 270 anos para ficar pronta, começando em 1226.','O Transparente, altar barroco do século XVIII, foi esculpido para captar luz de uma claraboia escondida no teto, efeito revolucionário pra época.','O arcebispo de Toledo carrega o título de Primaz da Espanha, precedência simbólica sobre os demais bispos do país.']},
+          {name:'Alcázar de Toledo (Museu do Exército)', lat:39.8590, lng:-4.0219, price:null, note:'Verificar tarifa atual no local',
+            desc:'Fortaleza no ponto mais alto da cidade, reconstruída várias vezes ao longo da história — a versão atual é praticamente uma reconstrução pós Guerra Civil Espanhola, quando o local foi palco de um cerco famoso. Hoje funciona como Museu do Exército.',
+            why:'A vista do topo da cidade é ótima mesmo sem entrar no museu — e o prédio em si já conta uma história e tanto do século XX espanhol.',
+            desc2:'A fortaleza já existia em versões romana e mourisca, mas ganhou fama internacional em 1936, no início da Guerra Civil Espanhola, quando um grupo de militares e civis franquistas resistiu a um cerco republicano de dois meses dentro do prédio, episódio que a propaganda de Franco depois transformou em símbolo fundador do regime. O edifício foi quase totalmente destruído no cerco e reconstruído do zero nos anos seguintes.',
+            curio:['O cerco de 1936 durou cerca de dois meses e virou símbolo fundador da propaganda franquista.','O prédio atual é, na prática, uma reconstrução quase total dos anos 1940 e 1950.','Hoje funciona como Museu do Exército espanhol, com coleções que vão da Idade Média até o século XX.']},
+          {name:'Sinagoga de Santa María la Blanca', lat:39.8593, lng:-4.0294, price:'€4', link:'https://toledomonumental.com/sinagoga-de-santa-maria-la-blanca/', video:'0CIb44UNNeQ', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Synagogue_of_Santa_Maria_la_Blanca,_12th_century,_Toledo_(2)_(29386732892).jpg?width=300',
+            desc:'Antiga sinagoga do século XII, construída por arquitetos mouros para a comunidade judaica de Toledo — depois virou igreja católica. O interior de arcos brancos em ferradura lembra mais uma mesquita do que qualquer sinagoga ou igreja europeia.',
+            why:'É a melhor prova visual de que Toledo já foi, de fato, uma "cidade das três culturas" — cristã, judaica e muçulmana convivendo lado a lado.',
+            desc2:'Foi construída por volta de 1180 por arquitetos muçulmanos, contratados pela própria comunidade judaica de Toledo, o que explica por que o interior lembra tanto uma mesquita: os construtores usaram exatamente as mesmas técnicas e formas que empregavam em templos islâmicos. Depois do pogrom de 1391, virou igreja católica, e nos séculos seguintes já funcionou como quartel militar e depósito antes de ser restaurada como monumento histórico.',
+            curio:['É a sinagoga medieval mais antiga da Europa que ainda está de pé.','Foi construída por arquitetos muçulmanos contratados pela comunidade judaica, por isso o estilo mourisco.','Já serviu como quartel militar e depósito antes de virar monumento histórico no século XIX.']},
+          {name:'Fly Toledo (tirolesa sobre o Tejo)', lat:39.8598, lng:-4.0311, price:'€12', link:'https://flytoledo.com/',
+            desc:'Uma tirolesa urbana que atravessa o rio Tejo bem ao lado da Ponte de San Martín, no centro histórico. Não precisa reservar (exceto grupos grandes), e a atividade toda dura poucos minutos, mas rende uma vista do rio e da cidade que nenhuma foto do mirante consegue igualar.',
+            why:'Quebra o ritmo de "mais uma catedral" com uma dose rápida de adrenalina — e de quebra, mostra Toledo de um ângulo que a maioria dos visitantes nunca vê.',
+            desc2:'A tirolesa foi instalada num ponto estratégico da margem do Tejo, bem ao lado da Ponte de San Martín, construída originalmente no século XIV para dar acesso seguro à cidade em caso de cerco. A escolha do local não é acaso: aproveita o mesmo desnível natural do rio que, séculos atrás, funcionava como defesa natural da Toledo fortificada.',
+            curio:['Fica ao lado da Ponte de San Martín, construída no século XIV.','O desnível aproveitado pela tirolesa é o mesmo que historicamente protegia Toledo de invasões.','Não é necessário reservar com antecedência, exceto para grupos grandes.']}
         ]}
     ]
   },
@@ -384,9 +605,24 @@ const DATA = [
     city:'Barcelona', id:'bcn-volta', range:'Dias 15–17',
     days:[
       { num:15, title:'Chegada em Barcelona', blurb:'Passeio leve pela Barceloneta ao entardecer.',
-        points:[ {name:'Barceloneta', lat:41.3784, lng:2.1925, price:null} ] },
-      { num:16, title:'Dia livre — Gràcia', blurb:'Bairro logo abaixo de Park Güell, com calma, para o último dia.',
-        points:[ {name:'Gràcia (Plaça del Sol)', lat:41.4036, lng:2.1567, price:null} ] },
+        points:[ {name:'Barceloneta', lat:41.3784, lng:2.1925, price:null,
+          desc:'Antigo bairro de pescadores, transformado em zona de praia urbana para as Olimpíadas de 1992. As ruas estreitas ainda preservam o traçado original do bairro operário, com boas opções de bares de tapas de peixe perto da areia.',
+          why:'Depois do trem vindo de Madri, é o jeito mais fácil de descomprimir — praia, mar e comida simples, sem agenda.',
+          desc2:'O bairro foi criado artificialmente em 1753, em terreno aterrado, para realojar moradores despejados da Ribera durante a construção da fortaleza militar da Ciutadella, erguida pelos Bourbons para vigiar a própria cidade após a derrota catalã na Guerra de Sucessão Espanhola de 1714. As praias, hoje o principal atrativo, só existem no formato atual desde a reforma para os Jogos Olímpicos de 1992.',
+          curio:['Foi criado para realojar moradores despejados pela construção de uma fortaleza militar em 1714.','As praias atuais só existem desde a reforma urbana para as Olimpíadas de 1992.','O bairro segue um traçado quadriculado raro para a época, quase americano, pensado nos anos 1750.']} ] },
+      { num:16, title:'Dia livre — Gràcia', blurb:'Bairro logo abaixo de Park Güell, com calma, e um pôr do sol no mar para fechar a viagem.',
+        points:[
+          {name:'Gràcia (Plaça del Sol)', lat:41.4036, lng:2.1567, price:null,
+            desc:'Ex-vila independente anexada a Barcelona só em 1897, ainda com identidade própria — ruas estreitas, praças cheias de bares e um clima mais devagar que o resto da cidade. A Plaça del Sol é o point social do bairro à noite.',
+            why:'É o bairro que mais se parece com "onde um barcelonês de verdade mora" — sem grandes monumentos, só vida de bairro.',
+            desc2:'Era uma vila independente com prefeitura própria até 1897, quando Barcelona anexou vários municípios vizinhos num processo de expansão urbana forçada que enfrentou resistência dos moradores locais, contrários à perda de autonomia. Mais de cem anos depois, o bairro ainda mantém identidade forte, incluindo a Festa Major de Gràcia, em agosto, quando os próprios moradores decoram as ruas com temas artísticos elaborados, tradição que remonta a 1817.',
+            curio:['Resistiu à anexação por Barcelona em 1897, inclusive com confrontos.','A Festa Major de Gràcia, em agosto, existe desde 1817 e decora dezenas de ruas com temas artísticos.','Cada rua do bairro compete informalmente pela decoração mais criativa durante a festa.']},
+          {name:'Passeio de veleiro ao pôr do sol', lat:41.3874, lng:2.1974, price:'A partir de €45', link:'https://www.civitatis.com/en/barcelona/barcelona-boat-ride/',
+            desc:'Saindo do Porto Olímpico, um veleiro pequeno (geralmente até 8-9 pessoas) navega pela costa de Barcelona por cerca de 2 horas, com cava, petiscos e a opção de nadar no meio do trajeto se o tempo ajudar. O retorno costuma coincidir com o pôr do sol, com a linha do horizonte da cidade — Sagrada Família incluída — vista do mar.',
+            why:'Uma perspectiva de Barcelona que nenhum museu ou terraço dá: a cidade inteira vista da água, sem fila e sem ingresso de monumento — só o barco e o mar.',
+            desc2:'O Porto Olímpico, ponto de partida do passeio, foi construído do zero para os Jogos de 1992, numa área que antes era só zona industrial e ferroviária degradada, sem nenhuma relação com o mar. A reforma olímpica é considerada um marco na história urbana de Barcelona: foi o momento em que a cidade, de fato, virou de costas para a indústria e de frente para o Mediterrâneo, frase repetida até hoje por urbanistas.',
+            curio:['O Porto Olímpico foi construído do zero para os Jogos de 1992.','Antes da reforma olímpica, a frente marítima de Barcelona era ocupada por indústria, não por praia.','A reabertura da cidade para o mar é considerada um dos maiores legados urbanísticos das Olimpíadas de 1992.']}
+        ] },
       { num:17, title:'Embarque', blurb:'Manhã de saída para o aeroporto — sem passeios previstos.', points:[] }
     ]
   }
@@ -401,11 +637,19 @@ function popupHTML(p){
   return `<div class="popup"><div class="pp-name">${p.name}</div>${priceLine}${noteLine}${linkBtn}</div>`;
 }
 
-function makeIcon(num, paid){
+function makeIcon(num, paid, photoUrl){
+  const accent = paid ? '#C1552D' : '#2D6E8E';
+  const fill = photoUrl
+    ? `background-image:url('${photoUrl}');background-size:cover;background-position:center;`
+    : `background:${accent};`;
   return L.divIcon({
     className:'',
-    html:`<div class="plnum ${paid?'paid':'free'}" style="width:26px;height:26px;font-size:11px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);">${num}</div>`,
-    iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-13]
+    html:`
+      <div class="pin-polaroid" style="width:30px;height:30px;background:#fffdf8;padding:2px;border-radius:2px;box-shadow:0 2px 5px rgba(22,35,58,.45);position:relative;transition:transform .12s ease-out;">
+        <div style="width:100%;height:100%;border-radius:1px;${fill}"></div>
+        <span style="position:absolute;top:-7px;left:-7px;width:17px;height:17px;border-radius:50%;background:${accent};color:#fff;font-family:'IBM Plex Mono',monospace;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;border:2px solid #fffdf8;">${num}</span>
+      </div>`,
+    iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
   });
 }
 
@@ -455,35 +699,43 @@ DATA.forEach(section=>{
       mapDiv.id = mapId;
       body.appendChild(mapDiv);
 
-      const list = document.createElement('ol');
-      list.className = 'points-list';
-      day.points.forEach((p,i)=>{
-        const li = document.createElement('li');
-        const priceHTML = p.price
-          ? `<span class="plprice paid">${p.price}</span>`
-          : `<span class="plprice free">Gratuito</span>`;
-        const linkHTML = p.link ? `<a class="plbuy" href="${p.link}" target="_blank" rel="noopener">comprar →</a>` : '';
-        li.innerHTML = `<span class="plnum ${p.price?'paid':'free'}">${i+1}</span><span class="plname">${p.name}</span>${priceHTML}${linkHTML}`;
-        list.appendChild(li);
-      });
-      body.appendChild(list);
+      const note = document.createElement('p');
+      note.className = 'perimeter-note';
+      note.textContent = 'Os números identificam cada ponto no mapa — não é uma ordem fixa de visita, e sim possibilidades dentro do perímetro do dia.';
+      body.appendChild(note);
 
-      const withVideo = day.points.filter(p=>p.video);
-      if(withVideo.length){
-        const videos = document.createElement('div');
-        videos.className = 'videos';
-        withVideo.forEach(p=>{
-          const vb = document.createElement('div');
-          vb.className = 'video-block';
-          vb.innerHTML = `
-            <p class="video-label"><span class="play">▶</span>${p.name}</p>
-            <a class="video-embed" href="https://www.youtube.com/watch?v=${p.video}" target="_blank" rel="noopener" style="background-image:url('https://img.youtube.com/vi/${p.video}/hqdefault.jpg')">
-              <span class="play-badge">▶</span>
-            </a>`;
-          videos.appendChild(vb);
-        });
-        body.appendChild(videos);
-      }
+      const cards = document.createElement('div');
+      cards.className = 'point-cards';
+      day.points.forEach((p,i)=>{
+        const pc = document.createElement('div');
+        pc.className = 'point-card';
+        const paid = !!p.price;
+        const priceHTML = p.price
+          ? `<span class="pc-price">${p.price}</span>`
+          : `<span class="pc-price free">Gratuito</span>`;
+        const descHTML = p.desc ? `<p class="pc-desc">${p.desc}</p>` : '';
+        const whyHTML = p.why ? `<p class="pc-why"><b>Por que vale a pena</b>${p.why}</p>` : '';
+        const linkHTML = p.link ? `<a class="pc-link" href="${p.link}" target="_blank" rel="noopener">Comprar / reservar →</a>` : '';
+        const videoHTML = p.video ? `<a class="pc-video" href="https://www.youtube.com/watch?v=${p.video}" target="_blank" rel="noopener" style="background-image:url('https://img.youtube.com/vi/${p.video}/hqdefault.jpg')"><span class="play-badge">▶</span></a>` : '';
+        let moreHTML = '';
+        if(p.desc2 || (p.curio && p.curio.length)){
+          const desc2HTML = p.desc2 ? `<p class="pc-desc2">${p.desc2}</p>` : '';
+          const curioHTML = (p.curio && p.curio.length) ? `<p class="pc-curio-label">Curiosidades</p><ul class="pc-curio-list">${p.curio.map(c=>`<li>${c}</li>`).join('')}</ul>` : '';
+          moreHTML = `<details class="pc-more"><summary>Saiba mais — história e curiosidades</summary><div class="pc-more-body">${desc2HTML}${curioHTML}</div></details>`;
+        }
+        pc.innerHTML = `
+          <div class="pc-head">
+            <span class="pc-num ${paid?'paid':'free'}">${i+1}</span>
+            <p class="pc-name">${p.name}</p>
+            ${priceHTML}
+          </div>
+          ${descHTML}
+          ${whyHTML}
+          ${moreHTML}
+          <div class="pc-footer">${linkHTML}${videoHTML}</div>`;
+        cards.appendChild(pc);
+      });
+      body.appendChild(cards);
 
       pendingMaps.push({mapId, points:day.points});
     }
@@ -503,18 +755,30 @@ pendingMaps.forEach(({mapId, points})=>{
   }).addTo(map);
 
   const latlngs = points.map(p=>[p.lat,p.lng]);
+  const markerEls = [];
   points.forEach((p,i)=>{
-    L.marker([p.lat,p.lng], {icon: makeIcon(i+1, !!p.price)})
-      .addTo(map)
-      .bindPopup(popupHTML(p));
+    const marker = L.marker([p.lat,p.lng], {icon: makeIcon(i+1, !!p.price, p.photo || null)}).addTo(map);
+    marker.bindPopup(popupHTML(p));
+    marker.on('add', ()=>{
+      const el = marker.getElement();
+      if(el){ const inner = el.querySelector('.pin-polaroid'); if(inner) markerEls.push(inner); }
+    });
   });
 
   if(latlngs.length > 1){
-    L.polyline(latlngs, {color:'#16233A', weight:2, dashArray:'4 7', opacity:.45}).addTo(map);
     map.fitBounds(L.latLngBounds(latlngs), {padding:[28,28]});
   } else {
     map.setView(latlngs[0], 15);
   }
+
+  const baseZoom = map.getZoom();
+  const applyScale = ()=>{
+    const z = map.getZoom();
+    const scale = Math.min(2.4, Math.max(0.75, 1 + (z - baseZoom) * 0.32));
+    markerEls.forEach(el=>{ el.style.transform = `scale(${scale})`; });
+  };
+  map.on('zoom', applyScale);
+  setTimeout(applyScale, 0);
 });
 </script>
 </body>
