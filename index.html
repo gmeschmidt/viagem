@@ -50,7 +50,7 @@
   .hero-text{flex:1; min-width:0;}
   .hero-avatar{
     flex:0 0 auto;
-    width:200px; height:200px;
+    width:240px; height:240px;
     border-radius:50%;
     overflow:hidden;
     background:var(--ink);
@@ -219,6 +219,11 @@
   }
   .pc-num.paid{background:var(--terracotta);}
   .pc-num.free{background:var(--azulejo);}
+  .pc-num.star{
+    border-radius:0;
+    width:26px; height:26px;
+    clip-path:polygon(50% 0%, 63% 36%, 100% 37%, 70% 59%, 82% 95%, 50% 74%, 18% 95%, 30% 59%, 0% 37%, 37% 36%);
+  }
   .pc-name{font-family:'Fraunces',serif; font-weight:600; font-size:15px; color:var(--ink); margin:0;}
   .pc-price{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--terracotta); font-weight:600;}
   .pc-price.free{color:var(--azulejo); font-weight:500;}
@@ -294,7 +299,7 @@
 
   @media (max-width:680px){
     .hero-flex{flex-direction:column-reverse; align-items:flex-start; gap:20px;}
-    .hero-avatar{width:130px; height:130px;}
+    .hero-avatar{width:150px; height:150px;}
     .day-card{flex-direction:column;}
     .day-info{flex:none;}
     .stub-divider{border-left:none;border-top:2px dashed var(--line);}
@@ -341,6 +346,11 @@ const DATA = [
     days:[
       { num:1, title:'Barri Gòtic e Born', blurb:'Catedral, Boqueria e Museu Picasso — tudo a pé no centro histórico.',
         points:[
+          {name:'Museu Picasso', lat:41.3851, lng:2.1809, price:'€19', star:true, link:'https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours', video:'XaDSAaSO60M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museu_Picasso_Barcelona.JPG?width=300',
+            desc:'Reúne mais de 4.000 obras da juventude de Picasso, incluindo boa parte da série "Las Meninas", releitura do quadro de Velázquez. É a melhor forma de entender a formação do artista antes de ele virar "Picasso".',
+            why:'Mostra o lado menos óbvio do artista — o aprendiz, não o gênio já consagrado — dentro de um conjunto de palácios medievais que já vale a visita por si só.',
+            desc2:'A ideia partiu de Jaume Sabartés, secretário e amigo de infância de Picasso, que doou sua coleção pessoal em 1960. O próprio artista, então vivendo na França, gostou tanto da iniciativa que passou a doar obras regularmente, incluindo peças raras da juventude que normalmente não sairiam de coleções particulares.',
+            curio:['Foi o primeiro museu do mundo dedicado a Picasso, inaugurado ainda em vida do artista.','Ocupa cinco palácios medievais interligados na Carrer de Montcada.','A coleção completa das 58 variações de "As Meninas" de Velázquez está só aqui.']},
           {name:'Catedral de Barcelona', lat:41.3839, lng:2.1760, price:null,
             desc:'Catedral gótica do Barri Gòtic, com um claustro que abriga 13 gansos vivos — tradição centenária ligada a Santa Eulàlia, padroeira da cidade. É mais discreta que a Sagrada Família, mas fica bem no meio do trajeto entre os outros pontos do dia.',
             why:'Não exige reserva nem fila longa — funciona como um respiro entre pontos mais disputados.',
@@ -361,11 +371,6 @@ const DATA = [
             why:'Entrada gratuita e menos concorrida que a Catedral, mas com uma arquitetura que impressiona igual.',
             desc2:'Foi erguida entre 1329 e 1383, prazo curto para um templo desse porte, porque os próprios moradores do bairro da Ribera, sobretudo estivadores do porto, carregaram as pedras nas costas como forma de doação. Essa origem popular, em vez de nobre ou eclesiástica, é a razão pela qual o interior é tão despojado e sem excesso decorativo.',
             curio:['O romance "A Catedral do Mar", de Ildefonso Falcones, é inspirado na sua construção.','Sobreviveu a um incêndio em 1936, durante a Guerra Civil, que destruiu o altar original.','As colunas internas ficam a 13 metros de distância uma da outra, recorde para a época.']},
-          {name:'Museu Picasso', lat:41.3851, lng:2.1809, price:'€19', link:'https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours', video:'XaDSAaSO60M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museu_Picasso_Barcelona.JPG?width=300',
-            desc:'Reúne mais de 4.000 obras da juventude de Picasso, incluindo boa parte da série "Las Meninas", releitura do quadro de Velázquez. É a melhor forma de entender a formação do artista antes de ele virar "Picasso".',
-            why:'Mostra o lado menos óbvio do artista — o aprendiz, não o gênio já consagrado — dentro de um conjunto de palácios medievais que já vale a visita por si só.',
-            desc2:'A ideia partiu de Jaume Sabartés, secretário e amigo de infância de Picasso, que doou sua coleção pessoal em 1960. O próprio artista, então vivendo na França, gostou tanto da iniciativa que passou a doar obras regularmente, incluindo peças raras da juventude que normalmente não sairiam de coleções particulares.',
-            curio:['Foi o primeiro museu do mundo dedicado a Picasso, inaugurado ainda em vida do artista.','Ocupa cinco palácios medievais interligados na Carrer de Montcada.','A coleção completa das 58 variações de "As Meninas" de Velázquez está só aqui.']},
           {name:'Els Quatre Gats', lat:41.3857, lng:2.1729, price:null, note:'Sem ingresso — pague pelo consumo',
             desc:'Cabaré-café aberto em 1897 na Casa Martí, inspirado no parisiense Le Chat Noir. Foi o point boêmio do modernismo catalão, onde artistas, escritores e músicos se reuniam para discutir arte e política.',
             why:'Picasso fez sua primeira exposição individual ali, aos 19 anos, e chegou a desenhar o próprio menu do café — um pedaço real da formação do artista, não só um café bonito.',
@@ -394,31 +399,31 @@ const DATA = [
         ]},
       { num:2, title:'Gaudí, Eixample e Gràcia', blurb:'Sagrada Família, Sant Pau e os dois prédios de Gaudí no Passeig de Gràcia, terminando em Park Güell.',
         points:[
-          {name:'Sagrada Família', lat:41.4036, lng:2.1744, price:'€26', link:'https://sagradafamilia.org/en/tickets', video:'Zog4rk8kt8k', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_03.jpg?width=300',
+          {name:'Sagrada Família', lat:41.4036, lng:2.1744, price:'€26', star:true, link:'https://sagradafamilia.org/en/tickets', video:'Zog4rk8kt8k', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Sagrada_Familia_03.jpg?width=300',
             desc:'A obra-prima inacabada de Gaudí, em construção desde 1882. As duas fachadas — Natividade e Paixão — contam a mesma história em estilos opostos: uma orgânica e cheia de detalhes, a outra angular e dura.',
             why:'É a experiência arquitetônica mais única de Barcelona — não existe nada parecido em nenhum outro lugar do mundo.',
             desc2:'Gaudí assumiu o projeto em 1883, um ano depois do início das obras, e o reformulou quase por completo, misturando gótico com formas orgânicas inspiradas na natureza. Sabia que não veria a conclusão e chegou a dizer que "meu cliente não tem pressa", referindo-se a Deus. Morreu em 1926 atropelado por um bonde, sem nem metade da igreja construída.',
             curio:['A torre central de Jesus Cristo só atingiu sua altura final em 2026, cem anos após a morte de Gaudí.','Parte dos planos originais foi destruída em um incêndio durante a Guerra Civil, em 1936.','A previsão de conclusão total, incluindo esculturas e decoração, é só para 2034.']},
+          {name:'Casa Batlló', lat:41.3917, lng:2.1649, price:'€29', star:true, link:'https://www.casabatllo.es/en/online-tickets/', video:'yFNLE5Thc-0', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Batll%C3%B3_01.jpg?width=300',
+            desc:'A fachada mais fotografada do Passeig de Gràcia: ondulada, coberta de mosaico azul-esverdeado, com um telhado que lembra as costas de um dragão. Por dentro, quase não existe linha reta.',
+            why:'É a introdução mais acessível ao vocabulário visual de Gaudí — cores, curvas e simbolismo — antes de encarar algo maior como a Sagrada Família.',
+            desc2:'Antes de Gaudí reformar o prédio em 1904, era uma construção comum e sem graça. A família Batlló, têxteis ricos, queria algo que se destacasse na já competitiva Illa de la Discòrdia (quarteirão onde arquitetos rivais tinham prédios lado a lado), e Gaudí respondeu com uma fachada que parece derreter, inspirada supostamente na lenda de São Jorge e o dragão.',
+            curio:['O telhado curvo representa as costas escamadas do dragão, e a torre com cruz é a lança de São Jorge.','As máscaras das varandas deram à casa o apelido popular de "Casa dos Ossos".','Fica na mesma quadra que outros dois prédios modernistas rivais, formando a Illa de la Discòrdia.']},
+          {name:'Park Güell', lat:41.4145, lng:2.1527, price:'€18', star:true, link:'https://parkguell.barcelona/en/buy-tickets', video:'2ZbTSnvaYWU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Park_G%C3%BCell_02.jpg?width=300',
+            desc:'Parque público desenhado por Gaudí como um bairro residencial de luxo que nunca decolou comercialmente — sobrou o parque, com bancos ondulados cobertos de mosaico, colunas que imitam troncos de árvore e a salamandra da escadaria de entrada.',
+            why:'A zona monumental é paga, mas o resto do parque — 17 hectares — é gratuito e menos concorrido, com uma das melhores vistas da cidade.',
+            desc2:'Eusebi Güell, empresário e mecenas de Gaudí, queria criar um bairro-jardim de luxo inspirado nas cidades-jardim inglesas, com 60 lotes para a elite de Barcelona. O projeto fracassou comercialmente, só duas casas foram vendidas, e a família doou o terreno inacabado à cidade em 1922, que o transformou no parque público que existe hoje.',
+            curio:['Apenas duas das 60 casas planejadas foram construídas; uma delas foi onde o próprio Gaudí morou.','A salamandra de mosaico na escada é popularmente apelidada de "El Drac".','Os bancos ondulados da praça principal tiveram participação do colaborador Josep Maria Jujol.']},
           {name:'Recinte Modernista de Sant Pau', lat:41.4132, lng:2.1743, price:'€17', link:'https://santpaubarcelona.org/en/', video:'WpV7SD2HADg', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/San_Pau_Hospital.jpg?width=300',
             desc:'Ex-hospital modernista projetado por Domènech i Montaner, contemporâneo de Gaudí — um conjunto de pavilhões cobertos de mosaicos que funcionou como hospital até 2009. Fica a 10 minutos a pé da Sagrada Família.',
             why:'É o modernismo catalão sem as filas da Sagrada Família — menos conhecido, igualmente impressionante.',
             desc2:'O hospital original de Barcelona, fundado em 1401, ficava no centro histórico e não tinha mais espaço para crescer. O banqueiro Pau Gil doou fortuna suficiente para construir uma versão nova e maior, e pediu que fosse bonita, argumentando que ambientes agradáveis ajudavam pacientes a se recuperar mais rápido, ideia bem avançada pra época.',
             curio:['Funcionou como hospital de verdade até 2009, quase um século inteiro.','Tem túneis subterrâneos que ligavam os pavilhões para o transporte discreto de pacientes.','Foi declarado Patrimônio da Humanidade pela UNESCO junto com o Palau de la Música, em 1997.']},
-          {name:'Casa Batlló', lat:41.3917, lng:2.1649, price:'€29', link:'https://www.casabatllo.es/en/online-tickets/', video:'yFNLE5Thc-0', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Batll%C3%B3_01.jpg?width=300',
-            desc:'A fachada mais fotografada do Passeig de Gràcia: ondulada, coberta de mosaico azul-esverdeado, com um telhado que lembra as costas de um dragão. Por dentro, quase não existe linha reta.',
-            why:'É a introdução mais acessível ao vocabulário visual de Gaudí — cores, curvas e simbolismo — antes de encarar algo maior como a Sagrada Família.',
-            desc2:'Antes de Gaudí reformar o prédio em 1904, era uma construção comum e sem graça. A família Batlló, têxteis ricos, queria algo que se destacasse na já competitiva Illa de la Discòrdia (quarteirão onde arquitetos rivais tinham prédios lado a lado), e Gaudí respondeu com uma fachada que parece derreter, inspirada supostamente na lenda de São Jorge e o dragão.',
-            curio:['O telhado curvo representa as costas escamadas do dragão, e a torre com cruz é a lança de São Jorge.','As máscaras das varandas deram à casa o apelido popular de "Casa dos Ossos".','Fica na mesma quadra que outros dois prédios modernistas rivais, formando a Illa de la Discòrdia.']},
           {name:'Casa Milà (La Pedrera)', lat:41.3954, lng:2.1619, price:'€25', link:'https://www.lapedrera.com/en/tickets/', video:'7M6eW-ES7-E', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Mil%C3%A0_-_Barcelona,_Spain_-_Jan_2007.jpg?width=300',
             desc:'Última obra civil de Gaudí, apelidada de "A Pedreira" pelos vizinhos que zombavam da fachada de pedra ondulada. O terraço tem chaminés esculpidas que teriam inspirado os soldados de Star Wars, segundo o próprio George Lucas.',
             why:'O terraço costuma ser mais interessante que o de Casa Batlló — e geralmente tem fila menor.',
             desc2:'Foi a última obra civil de Gaudí antes de ele se dedicar só à Sagrada Família. O empresário Pere Milà queria algo tão marcante quanto a Casa Batlló do vizinho, mas o resultado, uma fachada de pedra calcária ondulada sem nenhuma linha reta, foi tão estranho para os padrões de 1912 que os jornais da época zombaram chamando-a de pedreira.',
             curio:['É Patrimônio da Humanidade desde 1984, um dos primeiros prédios de Gaudí a receber o título.','A garagem subterrânea foi uma das primeiras de Barcelona projetadas para automóveis.','George Lucas citou as chaminés do telhado como inspiração para os capacetes dos stormtroopers.']},
-          {name:'Park Güell', lat:41.4145, lng:2.1527, price:'€18', link:'https://parkguell.barcelona/en/buy-tickets', video:'2ZbTSnvaYWU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Park_G%C3%BCell_02.jpg?width=300',
-            desc:'Parque público desenhado por Gaudí como um bairro residencial de luxo que nunca decolou comercialmente — sobrou o parque, com bancos ondulados cobertos de mosaico, colunas que imitam troncos de árvore e a salamandra da escadaria de entrada.',
-            why:'A zona monumental é paga, mas o resto do parque — 17 hectares — é gratuito e menos concorrido, com uma das melhores vistas da cidade.',
-            desc2:'Eusebi Güell, empresário e mecenas de Gaudí, queria criar um bairro-jardim de luxo inspirado nas cidades-jardim inglesas, com 60 lotes para a elite de Barcelona. O projeto fracassou comercialmente, só duas casas foram vendidas, e a família doou o terreno inacabado à cidade em 1922, que o transformou no parque público que existe hoje.',
-            curio:['Apenas duas das 60 casas planejadas foram construídas; uma delas foi onde o próprio Gaudí morou.','A salamandra de mosaico na escada é popularmente apelidada de "El Drac".','Os bancos ondulados da praça principal tiveram participação do colaborador Josep Maria Jujol.']},
           {name:'Bunkers del Carmel', lat:41.4204, lng:2.1601, price:null, note:'Mirador gratuito — ideal ao pôr do sol',
             desc:'Um antigo bunker antiaéreo da Guerra Civil, hoje um mirante informal com vista de 360° sobre toda Barcelona — do mar até a serra de Collserola. Sem estrutura turística nenhuma: é chegar, sentar na alvenaria e aproveitar. Vale levar vinho, queijos e embutidos comprados num mercado local e fazer um piquenique ao pôr do sol.',
             why:'Zero ingresso, zero fila, e a vista rivaliza com a de Montjuïc — só que sem estrutura de atração turística, então o clima é bem mais local e relaxado.',
@@ -469,21 +474,21 @@ const DATA = [
         ]},
       { num:6, title:'Centro histórico', blurb:'Catedral, Real Alcázar, Casa de Pilatos e flamenco à noite.',
         points:[
-          {name:'Catedral de Sevilha + Giralda', lat:37.3861, lng:-5.9931, price:'€13–15', link:'https://catedraldesevilla.es', video:'yl-FEVqiI-g', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/La_Giralda,_Seville,_Spain_-_Sep_2009.jpg?width=300',
+          {name:'Catedral de Sevilha + Giralda', lat:37.3861, lng:-5.9931, price:'€13–15', star:true, link:'https://catedraldesevilla.es', video:'yl-FEVqiI-g', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/La_Giralda,_Seville,_Spain_-_Sep_2009.jpg?width=300',
             desc:'A maior catedral gótica do mundo, construída sobre os alicerces da antiga mesquita almóada — a torre Giralda, hoje campanário, era originalmente o minarete da mesquita. Dentro, o túmulo de Cristóvão Colombo é erguido por quatro estátuas.',
             why:'É provavelmente a experiência histórica mais densa de Sevilha — cristianismo e islã, literalmente, na mesma construção.',
             desc2:'Depois da reconquista cristã em 1248, a mesquita almóada continuou em uso por quase 150 anos até que o cabido decidiu demoli-la quase por completo para construir uma catedral tão grande que, segundo a lenda, os planejadores queriam que "a posteridade nos julgasse loucos". Só a Giralda, o antigo minarete, foi poupada e incorporada como torre sineira.',
             curio:['É reconhecidamente a maior catedral gótica do mundo em volume.','A Giralda tem rampas em vez de escadas na parte inferior, feitas para o muezim subir a cavalo.','O túmulo de Colombo é sustentado por quatro estátuas representando os reinos da Espanha da época.']},
+          {name:'Real Alcázar', lat:37.3833, lng:-5.9903, price:'€15,50', star:true, link:'https://alcazarsevilla.org/', video:'aE_pWT8xA1M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Patio_de_la_Monteria_Palace_Pedro_I_Alcazar_Seville_Spain.jpg?width=300',
+            desc:'Palácio real ainda em uso pela família real espanhola, com arquitetura mudéjar que mistura influências mouriscas e cristãs. Os jardins são tão extensos que servem de fuga da agitação da cidade.',
+            why:'Provavelmente o monumento mais bonito de Sevilha — reserve com bastante antecedência, os ingressos esgotam rápido.',
+            desc2:'Começou como fortaleza mourisca no século IX, mas a estrutura atual deve sua fama ao rei cristão Pedro I, que no século XIV contratou artesãos mouriscos de Granada para construir seus próprios palácios dentro do complexo, mesmo já sendo um monarca católico. Esse estilo de arquitetura cristã feita por mãos e técnicas islâmicas tem nome próprio: mudéjar.',
+            curio:['É o palácio real mais antigo da Europa ainda em uso pela realeza.','Serviu de cenário para a cidade fictícia de Dorne em Game of Thrones.','Pedro I, que mandou construí-lo, é lembrado tanto como "o Justo" quanto como "o Cruel", dependendo da fonte.']},
           {name:'Biblioteca Colombina', lat:37.3856, lng:-5.9928, price:null, note:'Consultar horário de visita no complexo da Catedral',
             desc:'Biblioteca dentro do complexo da Catedral de Sevilha, criada por Hernando Colón, filho de Cristóvão Colombo, um dos maiores bibliófilos do Renascimento, que tentou reunir todos os livros do mundo então conhecido num só lugar.',
             why:'É um pedaço pouco visitado da história dos descobrimentos, literalmente dentro do mesmo complexo da Catedral e do Alcázar, sem precisar de deslocamento extra.',
             desc2:'Hernando Colón viajou pela Europa comprando e catalogando livros de forma sistemática, criando um dos primeiros sistemas de catalogação bibliográfica da história, décadas antes de qualquer padrão formal existir. Sua coleção original tinha mais de 15.000 volumes, dos quais boa parte se perdeu ao longo dos séculos, mas o que sobrou inclui manuscritos e edições raras da época das grandes navegações.',
             curio:['Hernando Colón, filho de Cristóvão Colombo, criou um dos primeiros sistemas de catalogação bibliográfica da história.','A coleção original tinha mais de 15.000 volumes, boa parte hoje perdida.','Fica dentro do próprio complexo da Catedral de Sevilha, ao lado do Patio de los Naranjos.']},
-          {name:'Real Alcázar', lat:37.3833, lng:-5.9903, price:'€15,50', link:'https://alcazarsevilla.org/', video:'aE_pWT8xA1M', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Patio_de_la_Monteria_Palace_Pedro_I_Alcazar_Seville_Spain.jpg?width=300',
-            desc:'Palácio real ainda em uso pela família real espanhola, com arquitetura mudéjar que mistura influências mouriscas e cristãs. Os jardins são tão extensos que servem de fuga da agitação da cidade.',
-            why:'Provavelmente o monumento mais bonito de Sevilha — reserve com bastante antecedência, os ingressos esgotam rápido.',
-            desc2:'Começou como fortaleza mourisca no século IX, mas a estrutura atual deve sua fama ao rei cristão Pedro I, que no século XIV contratou artesãos mouriscos de Granada para construir seus próprios palácios dentro do complexo, mesmo já sendo um monarca católico. Esse estilo de arquitetura cristã feita por mãos e técnicas islâmicas tem nome próprio: mudéjar.',
-            curio:['É o palácio real mais antigo da Europa ainda em uso pela realeza.','Serviu de cenário para a cidade fictícia de Dorne em Game of Thrones.','Pedro I, que mandou construí-lo, é lembrado tanto como "o Justo" quanto como "o Cruel", dependendo da fonte.']},
           {name:'Casa de Pilatos', lat:37.3900, lng:-5.9877, price:'€12', link:'https://fundacionmedinaceli.org/en/monuments/house-of-pilate/', video:'Of7nUtX7ofo', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Casa_de_Pilatos,_Seville_36.JPG?width=300',
             desc:'Considerada o protótipo do palácio andaluz — mistura mudéjar e renascentista italiano, com mais de 150 padrões diferentes de azulejo. Ainda é residência particular da família Medinaceli.',
             why:'É um Real Alcázar em miniatura, com muito menos gente — ótimo complemento no mesmo dia.',
@@ -517,7 +522,7 @@ const DATA = [
         ]},
       { num:7, title:'Triana e rio', blurb:'Plaza de España, Parque de María Luisa e travessia até Triana.',
         points:[
-          {name:'Plaza de España', lat:37.3772, lng:-5.9869, price:null,
+          {name:'Plaza de España', lat:37.3772, lng:-5.9869, price:null, star:true,
             desc:'Construída para a Exposição Ibero-Americana de 1929, é um semicírculo monumental com um canal navegável e azulejos representando cada província espanhola. Já apareceu em Star Wars: Episódio II.',
             why:'É provavelmente o cartão-postal mais fotografado de Sevilha — e ainda assim vale a visita pessoalmente.',
             desc2:'Foi construída como pavilhão principal da Exposição Ibero-Americana de 1929, evento pensado para reforçar os laços culturais entre a Espanha e suas ex-colônias latino-americanas. Os 48 bancos de azulejo ao redor representam cada província espanhola da época, e muitas famílias andaluzas ainda visitam o banco da própria província em passeios de domingo.',
@@ -550,7 +555,7 @@ const DATA = [
         ]},
       { num:8, title:'Córdoba (bate-volta)', blurb:'Trem AVE de ~45 min. Mezquita, Judería e Alcázar de los Reyes Cristianos.',
         points:[
-          {name:'Mezquita-Catedral de Córdoba', lat:37.8790, lng:-4.7794, price:'€15', link:'https://mezquita-catedraldecordoba.es/en/organiza-la-visita/entradas-y-horarios/', video:'Cz_6IhXBVRU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Mezquita-catedral_de_C%C3%B3rdoba_interior_13.jpg?width=300',
+          {name:'Mezquita-Catedral de Córdoba', lat:37.8790, lng:-4.7794, price:'€15', star:true, link:'https://mezquita-catedraldecordoba.es/en/organiza-la-visita/entradas-y-horarios/', video:'Cz_6IhXBVRU', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Mezquita-catedral_de_C%C3%B3rdoba_interior_13.jpg?width=300',
             desc:'Antiga grande mesquita de Córdoba, com uma floresta de mais de 850 colunas de mármore, granito e ônix. Uma catedral renascentista foi erguida literalmente dentro dela no século XVI — o resultado é um dos edifícios mais estranhos e fascinantes da Europa.',
             why:'Não existe outro monumento na Espanha que resuma tão bem os séculos de convivência entre culturas — vale cada minuto.',
             desc2:'Foi erguida a partir de 785 sobre uma antiga igreja visigótica, que por sua vez tinha sido erguida sobre um templo romano, reaproveitando o mesmo terreno sagrado por mais de mil anos. Quando os cristãos reconquistaram Córdoba em 1236, decidiram não demolir a mesquita, apenas inserir uma catedral renascentista no centro dela, décadas depois, o que gerou protestos até do próprio rei Carlos V.',
@@ -626,7 +631,7 @@ const DATA = [
         ]},
       { num:10, title:'Centro real', blurb:'Palácio Real, Gran Vía e o mirador do Círculo de Bellas Artes.',
         points:[
-          {name:'Palácio Real', lat:40.4180, lng:-3.7143, price:'€18', link:'https://tickets.patrimonionacional.es/en/tickets/palacio-real-de-madrid', video:'WG6WEzrQskE', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Royal_Palace_of_Madrid_08.JPG?width=300',
+          {name:'Palácio Real', lat:40.4180, lng:-3.7143, price:'€18', star:true, link:'https://tickets.patrimonionacional.es/en/tickets/palacio-real-de-madrid', video:'WG6WEzrQskE', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Royal_Palace_of_Madrid_08.JPG?width=300',
             desc:'O maior palácio real da Europa Ocidental, com mais de 3.000 cômodos — embora a família real hoje viva no Palácio da Zarzuela e use este só para cerimônias oficiais. As Salas do Trono e a Real Armería são os destaques.',
             why:'É maior e mais luxuoso que a maioria dos palácios europeus que os turistas conhecem — surpreende quem espera algo parecido com o de Buckingham.',
             desc2:'O palácio anterior, um antigo alcácer mourisco reformado ao longo de séculos, pegou fogo na véspera de Natal de 1734 e foi completamente destruído. O rei Filipe V, primeiro da dinastia Bourbon na Espanha, decidiu reconstruir em pedra e mármore, não em madeira, especificamente para que nunca mais pegasse fogo, e o resultado foi um palácio maior que qualquer outro da Europa da época.',
@@ -659,7 +664,7 @@ const DATA = [
         ]},
       { num:11, title:'Triângulo do Prado', blurb:'Prado, Thyssen e Retiro — tudo a poucos minutos a pé.',
         points:[
-          {name:'Museo del Prado', lat:40.4138, lng:-3.6921, price:'€15', link:'https://entradas.museodelprado.es/', video:'G7Nmv8TQBHw', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Vista_general_Museo_del_Prado.JPG?width=300',
+          {name:'Museo del Prado', lat:40.4138, lng:-3.6921, price:'€15', star:true, link:'https://entradas.museodelprado.es/', video:'G7Nmv8TQBHw', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Vista_general_Museo_del_Prado.JPG?width=300',
             desc:'O principal museu de arte da Espanha, com obras-primas de Velázquez ("As Meninas"), Goya (as Pinturas Negras) e Hieronymus Bosch ("O Jardim das Delícias"). A coleção reflete os gostos pessoais da monarquia espanhola ao longo de séculos.',
             why:'Um dos museus de arte mais importantes do mundo — mesmo quem não é fã de museu costuma sair impressionado com "As Meninas".',
             desc2:'O prédio foi encomendado em 1785 por Carlos III como Gabinete de História Natural, não como museu de arte, mas a Guerra da Independência contra Napoleão interrompeu as obras e deixou o edifício praticamente em ruínas por anos. Só reabriu como museu de pinturas em 1819, reunindo as coleções particulares da monarquia espanhola, já consideradas entre as mais ricas da Europa.',
@@ -687,7 +692,7 @@ const DATA = [
         ]},
       { num:12, title:'Reina Sofía e bairros', blurb:'Guernica de Picasso, depois Malasaña e Chueca.',
         points:[
-          {name:'Museo Reina Sofía', lat:40.4079, lng:-3.6943, price:'€12', link:'https://entradas.museoreinasofia.es/', video:'Y1TYe0gRtS4', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museo_Reina_Sofia-exterior.jpg?width=300',
+          {name:'Museo Reina Sofía', lat:40.4079, lng:-3.6943, price:'€12', star:true, link:'https://entradas.museoreinasofia.es/', video:'Y1TYe0gRtS4', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Museo_Reina_Sofia-exterior.jpg?width=300',
             desc:'Museu de arte moderna e contemporânea espanhola, mais conhecido por abrigar o Guernica de Picasso — o mural que retrata o bombardeio da cidade basca durante a Guerra Civil. Também tem obras de Dalí e Miró.',
             why:'O Guernica sozinho já justifica a visita — é uma das obras mais politicamente carregadas da história da arte, vista de perto.',
             desc2:'O prédio principal era um hospital geral desde o século XVIII, funcionando até os anos 1960, quando foi condenado à demolição. Um grupo de arquitetos impediu a derrubada e converteu o espaço em centro cultural nos anos 1980; o Guernica só chegou ao museu em 1992, depois de décadas guardado no MoMA de Nova York por exigência do próprio Picasso, que recusava enviá-lo à Espanha enquanto durasse a ditadura franquista.',
@@ -738,16 +743,16 @@ const DATA = [
         ]},
       { num:14, title:'Toledo (bate-volta)', blurb:'Trem de ~30 min. Táxi da estação até o Mirador del Valle, depois centro histórico a pé.',
         points:[
+          {name:'Catedral de Toledo', lat:39.8578, lng:-4.0244, price:'€12', star:true, link:'https://www.catedralprimada.es/visita-cultural/entradas-catedral-toledo/', video:'lgPxpDyVq1A', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Toledo,_Spain_-_exterior_1.JPG?width=300',
+            desc:'Catedral gótica considerada a "Primada da Espanha" — sede simbólica da Igreja Católica no país. Guarda obras de El Greco na sacristia e o Transparente, um altar barroco iluminado por uma claraboia escondida no teto.',
+            why:'É uma das catedrais mais ricas da Espanha em detalhes escondidos — vale contratar ou baixar um guia pra não passar batido pelas melhores partes.',
+            desc2:'Foi construída sobre uma mesquita maior, que por sua vez tinha sido erguida sobre uma igreja visigótica anterior, seguindo o mesmo padrão de reaproveitamento religioso visto em Córdoba e Sevilha. As obras começaram em 1226 e levaram quase 270 anos para terminar, e o título de "Primada da Espanha" garante ao arcebispo de Toledo precedência simbólica sobre todos os outros bispos do país.',
+            curio:['Levou quase 270 anos para ficar pronta, começando em 1226.','O Transparente, altar barroco do século XVIII, foi esculpido para captar luz de uma claraboia escondida no teto, efeito revolucionário pra época.','O arcebispo de Toledo carrega o título de Primaz da Espanha, precedência simbólica sobre os demais bispos do país.']},
           {name:'Mirador del Valle', lat:39.8536, lng:-4.0231, price:null,
             desc:'Mirante do outro lado do rio Tejo, de frente para a silhueta inteira de Toledo — a mesma vista que El Greco pintou em "Vista de Toledo". É o ângulo clássico de cartão-postal da cidade.',
             why:'É a primeira impressão certa de Toledo — melhor ver a cidade de fora antes de entrar nela.',
             desc2:'O ponto exato de onde El Greco pintou sua famosa "Vista de Toledo", por volta de 1600, fica muito perto desse mirante, do outro lado do rio Tejo. A obra é considerada uma das primeiras paisagens urbanas puras da história da arte ocidental, sem cena bíblica ou histórica em primeiro plano, e está hoje no Metropolitan Museum de Nova York.',
             curio:['É praticamente o mesmo ângulo que El Greco pintou em "Vista de Toledo", por volta de 1600.','O quadro original de El Greco está hoje no Metropolitan Museum, em Nova York.','O rio Tejo forma uma curva quase fechada ao redor da cidade, motivo pelo qual Toledo virou fortaleza natural.']},
-          {name:'Catedral de Toledo', lat:39.8578, lng:-4.0244, price:'€12', link:'https://www.catedralprimada.es/visita-cultural/entradas-catedral-toledo/', video:'lgPxpDyVq1A', photo:'https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Toledo,_Spain_-_exterior_1.JPG?width=300',
-            desc:'Catedral gótica considerada a "Primada da Espanha" — sede simbólica da Igreja Católica no país. Guarda obras de El Greco na sacristia e o Transparente, um altar barroco iluminado por uma claraboia escondida no teto.',
-            why:'É uma das catedrais mais ricas da Espanha em detalhes escondidos — vale contratar ou baixar um guia pra não passar batido pelas melhores partes.',
-            desc2:'Foi construída sobre uma mesquita maior, que por sua vez tinha sido erguida sobre uma igreja visigótica anterior, seguindo o mesmo padrão de reaproveitamento religioso visto em Córdoba e Sevilha. As obras começaram em 1226 e levaram quase 270 anos para terminar, e o título de "Primada da Espanha" garante ao arcebispo de Toledo precedência simbólica sobre todos os outros bispos do país.',
-            curio:['Levou quase 270 anos para ficar pronta, começando em 1226.','O Transparente, altar barroco do século XVIII, foi esculpido para captar luz de uma claraboia escondida no teto, efeito revolucionário pra época.','O arcebispo de Toledo carrega o título de Primaz da Espanha, precedência simbólica sobre os demais bispos do país.']},
           {name:'Alcázar de Toledo (Museu do Exército)', lat:39.8590, lng:-4.0219, price:null, note:'Verificar tarifa atual no local',
             desc:'Fortaleza no ponto mais alto da cidade, reconstruída várias vezes ao longo da história — a versão atual é praticamente uma reconstrução pós Guerra Civil Espanhola, quando o local foi palco de um cerco famoso. Hoje funciona como Museu do Exército.',
             why:'A vista do topo da cidade é ótima mesmo sem entrar no museu — e o prédio em si já conta uma história e tanto do século XX espanhol.',
@@ -906,6 +911,7 @@ DATA.forEach(section=>{
         const pc = document.createElement('div');
         pc.className = 'point-card';
         const paid = !!p.price;
+        const starClass = p.star ? ' star' : '';
         const priceHTML = p.price
           ? `<span class="pc-price">${p.price}</span>`
           : `<span class="pc-price free">Gratuito</span>`;
@@ -921,7 +927,7 @@ DATA.forEach(section=>{
         }
         pc.innerHTML = `
           <div class="pc-head">
-            <span class="pc-num ${paid?'paid':'free'}">${i+1}</span>
+            <span class="pc-num ${paid?'paid':'free'}${starClass}">${i+1}</span>
             <p class="pc-name">${p.name}</p>
             ${priceHTML}
           </div>
