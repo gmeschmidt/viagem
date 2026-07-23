@@ -983,7 +983,10 @@ DATA.forEach(section=>{
   function renderRate(rate, dateStr, sourceLabel){
     const rateFmt = rate.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
     let dateFmt = '';
-    try { dateFmt = new Date(dateStr + 'T00:00:00').toLocaleDateString('pt-BR'); } catch(e){ dateFmt = dateStr || ''; }
+    if(dateStr){
+      const parsed = new Date(dateStr + 'T00:00:00');
+      if(!isNaN(parsed.getTime())) dateFmt = parsed.toLocaleDateString('pt-BR');
+    }
     el.innerHTML = `Câmbio hoje: <span class="fx-num">€1 = R$ ${rateFmt}</span> <span style="opacity:.65">(${sourceLabel}${dateFmt ? ', '+dateFmt : ''})</span>`;
   }
 
