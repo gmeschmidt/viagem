@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiro Espanha — 17 dias</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233A;
+    --ink-soft:#2A3E5C;
+    --azulejo:#2D6E8E;
+    --ochre:#D69A2D;
+    --terracotta:#C1552D;
+    --cream:#F5EFE0;
+    --paper:#FBF8F1;
+    --line:rgba(22,35,58,.14);
+    --line-soft:rgba(255,255,255,.22);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* header */
+  header.hero{
+    background:var(--ink);
+    color:var(--cream);
+    padding:56px 24px 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 2px, transparent 2px 34px);
+    pointer-events:none;
+  }
+  .hero-inner{max-width:920px;margin:0 auto;position:relative;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--ochre);
+    margin:0 0 14px;
+  }
+  .hero-inner h1{
+    font-size:clamp(34px,6vw,58px);
+    font-weight:600;
+    line-height:1.02;
+    margin:0 0 16px;
+  }
+  .hero-route{
+    font-size:15px;
+    color:rgba(245,239,224,.78);
+    line-height:1.7;
+    max-width:60ch;
+  }
+  .hero-legend{
+    display:flex;gap:22px;flex-wrap:wrap;
+    margin-top:26px;
+    padding-top:22px;
+    border-top:1px dashed var(--line-soft);
+    font-size:13px;
+    color:rgba(245,239,224,.85);
+  }
+  .hero-legend span{display:inline-flex;align-items:center;gap:8px;}
+  .dot{width:11px;height:11px;border-radius:50%;display:inline-block;border:2px solid rgba(255,255,255,.7);}
+  .dot-paid{background:var(--terracotta);}
+  .dot-free{background:var(--azulejo);}
+
+  /* nav */
+  nav.cities{
+    position:sticky; top:0; z-index:50;
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    display:flex; gap:2px; overflow-x:auto;
+    padding:0 16px;
+  }
+  nav.cities a{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.03em;
+    text-decoration:none;
+    color:var(--ink-soft);
+    padding:14px 16px;
+    white-space:nowrap;
+    border-bottom:2px solid transparent;
+    transition:color .15s, border-color .15s;
+  }
+  nav.cities a:hover{color:var(--terracotta); border-color:var(--ochre);}
+
+  main{max-width:920px;margin:0 auto;padding:48px 20px 80px;}
+
+  .city-block{margin-bottom:64px; scroll-margin-top:54px;}
+  .city-head{display:flex;align-items:baseline;gap:14px;margin-bottom:26px;}
+  .city-head h2{font-size:28px;font-weight:600;margin:0;color:var(--ink);}
+  .city-head .range{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;color:var(--terracotta);
+    border:1px solid var(--terracotta);
+    border-radius:20px;padding:3px 11px;
+  }
+
+  /* ticket-stub day card */
+  .day-card{
+    display:flex;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    margin-bottom:22px;
+    box-shadow:0 1px 2px rgba(22,35,58,.04);
+  }
+  .day-info{
+    flex:0 0 240px;
+    background:var(--ink);
+    color:var(--cream);
+    padding:24px 22px;
+    position:relative;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .day-num{
+    font-family:'Fraunces',serif;
+    font-size:38px; font-weight:600; line-height:1;
+    color:var(--ochre);
+  }
+  .day-info h3{margin:0; font-size:19px; line-height:1.25; font-weight:600;}
+  .day-blurb{font-size:12.5px; color:rgba(245,239,224,.72); line-height:1.55; margin:0;}
+
+  .stub-divider{
+    flex:0 0 0;
+    border-left:2px dashed var(--line);
+    position:relative;
+  }
+  .stub-divider::before,.stub-divider::after{
+    content:"";
+    position:absolute; left:-9px;
+    width:18px; height:18px; border-radius:50%;
+    background:var(--paper);
+    border:1px solid var(--line);
+  }
+  .stub-divider::before{top:-9px;}
+  .stub-divider::after{bottom:-9px;}
+
+  .day-body{flex:1; padding:20px 22px; min-width:0;}
+  .map{
+    width:100%; height:250px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    background:#e8e3d4;
+  }
+  .no-map-note{
+    font-size:13.5px; color:var(--ink-soft); line-height:1.6;
+    padding:6px 0 2px;
+  }
+
+  ol.points-list{list-style:none;margin:14px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;}
+  ol.points-list li{
+    display:flex; align-items:center; gap:10px;
+    font-size:13.5px;
+    padding:7px 10px;
+    border-radius:8px;
+    background:rgba(22,35,58,.03);
+  }
+  .plnum{
+    flex:0 0 auto;
+    width:20px;height:20px;border-radius:50%;
+    color:#fff; font-family:'IBM Plex Mono',monospace; font-size:10.5px; font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .plnum.paid{background:var(--terracotta);}
+  .plnum.free{background:var(--azulejo);}
+  .plname{flex:1; min-width:0;}
+  .plprice{
+    flex:0 0 auto;
+    font-family:'IBM Plex Mono',monospace; font-size:12px;
+  }
+  .plprice.free{color:var(--azulejo);}
+  .plprice.paid{color:var(--terracotta); font-weight:600;}
+  ol.points-list a.plbuy{
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--terracotta); text-decoration:none;
+    border-bottom:1px solid var(--terracotta);
+    white-space:nowrap;
+  }
+  ol.points-list a.plbuy:hover{color:var(--ink);border-color:var(--ink);}
+
+  /* leaflet popup theming */
+  .leaflet-popup-content-wrapper{border-radius:10px;}
+  .popup{font-family:'Inter',sans-serif; min-width:170px;}
+  .pp-name{font-family:'Fraunces',serif;font-weight:600;font-size:14.5px;margin-bottom:5px;color:var(--ink);}
+  .pp-price{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--terracotta);font-weight:600;margin-bottom:6px;}
+  .pp-price.pp-free{color:var(--azulejo);}
+  .pp-note{font-size:12px;color:var(--ink-soft);margin-bottom:4px;}
+  a.pp-link{
+    display:inline-block; font-family:'IBM Plex Mono',monospace; font-size:12px;
+    color:#fff; background:var(--terracotta);
+    padding:6px 10px; border-radius:6px; text-decoration:none;
+  }
+  a.pp-link:hover{background:var(--ink);}
+
+  footer{
+    max-width:920px;margin:0 auto;padding:0 20px 60px;
+    font-size:12.5px;color:var(--ink-soft);line-height:1.7;
+  }
+  footer .rule{border-top:1px dashed var(--line);margin:0 0 20px;}
+
+  @media (max-width:680px){
+    .day-card{flex-direction:column;}
+    .day-info{flex:none;}
+    .stub-divider{border-left:none;border-top:2px dashed var(--line);}
+    .stub-divider::before,.stub-divider::after{left:auto; top:-9px;}
+    .stub-divider::before{left:-9px;}
+    .stub-divider::after{left:auto; right:-9px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Barcelona · Sevilha · Córdoba · Madri · Toledo</p>
+    <h1>17 dias pela Espanha</h1>
+    <p class="hero-route">Roteiro dia a dia com os pontos agrupados por proximidade. Toque em cada marcador do mapa para ver o valor da entrada e o link oficial de compra.</p>
+    <div class="hero-legend">
+      <span><i class="dot dot-paid"></i> Atração paga</span>
+      <span><i class="dot dot-free"></i> Gratuita / sem ingresso</span>
+    </div>
+  </div>
+</header>
+
+<nav class="cities" id="cityNav"></nav>
+
+<main id="main"></main>
+
+<footer>
+  <div class="rule"></div>
+  Preços de referência (2026) e sujeitos a reajuste — confirme sempre no site oficial antes de comprar. Mapas: OpenStreetMap / CARTO.
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const DATA = [
+  {
+    city:'Barcelona', id:'bcn-ida', range:'Dias 1–4',
+    days:[
+      { num:1, title:'Barri Gòtic e Born', blurb:'Catedral, Boqueria e Museu Picasso — tudo a pé no centro histórico.',
+        points:[
+          {name:'Catedral de Barcelona', lat:41.3839, lng:2.1760, price:null},
+          {name:'Plaça Sant Jaume', lat:41.3828, lng:2.1701, price:null},
+          {name:'Mercat de la Boqueria', lat:41.3818, lng:2.1716, price:null, note:'Entrada livre — pague pelo que consumir'},
+          {name:'Basílica Santa Maria del Mar', lat:41.3838, lng:2.1817, price:null},
+          {name:'Museu Picasso', lat:41.3851, lng:2.1809, price:'€19', link:'https://museupicassobcn.cat/en/plan-your-visit/buy-tickets-and-opening-hours'}
+        ]},
+      { num:2, title:'Gaudí, Eixample e Gràcia', blurb:'Sagrada Família, Sant Pau e os dois prédios de Gaudí no Passeig de Gràcia, terminando em Park Güell.',
+        points:[
+          {name:'Sagrada Família', lat:41.4036, lng:2.1744, price:'€26', link:'https://sagradafamilia.org/en/tickets'},
+          {name:'Recinte Modernista de Sant Pau', lat:41.4132, lng:2.1743, price:'€17', link:'https://santpaubarcelona.org/en/'},
+          {name:'Casa Batlló', lat:41.3917, lng:2.1649, price:'€29', link:'https://www.casabatllo.es/en/online-tickets/'},
+          {name:'Casa Milà (La Pedrera)', lat:41.3954, lng:2.1619, price:'€25', link:'https://www.lapedrera.com/en/tickets/'},
+          {name:'Park Güell', lat:41.4145, lng:2.1527, price:'€18', link:'https://parkguell.barcelona/en/buy-tickets'},
+          {name:'Bunkers del Carmel', lat:41.4204, lng:2.1601, price:null, note:'Mirador gratuito — ideal ao pôr do sol'}
+        ]},
+      { num:3, title:'Montjuïc', blurb:'MNAC e o castelo, com jardins e vista da cidade.',
+        points:[
+          {name:'MNAC', lat:41.3684, lng:2.1543, price:'€12', link:'https://www.museunacional.cat/es/compra-de-entradas-online'},
+          {name:'Castell de Montjuïc (jardins)', lat:41.3633, lng:2.1660, price:null, note:'Jardins e exterior gratuitos'}
+        ]},
+      { num:4, title:'Vinícola', blurb:'Dia inteiro dedicado ao passeio de vinícola em Penedès — sem pontos fixos na cidade.', points:[] }
+    ]
+  },
+  {
+    city:'Sevilha & Córdoba', id:'sevilha', range:'Dias 5–8',
+    days:[
+      { num:5, title:'Chegada em Sevilha', blurb:'Centro, Las Setas ao entardecer e Barrio de Santa Cruz.',
+        points:[
+          {name:'Plaza Nueva', lat:37.3839, lng:-5.9958, price:null},
+          {name:'Las Setas (Metropol Parasol)', lat:37.3959, lng:-5.9926, price:'€16', link:'https://www.setasdesevilla.com'},
+          {name:'Barrio de Santa Cruz', lat:37.3856, lng:-5.9902, price:null}
+        ]},
+      { num:6, title:'Centro histórico', blurb:'Catedral, Real Alcázar, Casa de Pilatos e flamenco à noite.',
+        points:[
+          {name:'Catedral de Sevilha + Giralda', lat:37.3861, lng:-5.9931, price:'€13–15', link:'https://catedraldesevilla.es'},
+          {name:'Real Alcázar', lat:37.3833, lng:-5.9903, price:'€15,50', link:'https://alcazarsevilla.org/'},
+          {name:'Casa de Pilatos', lat:37.3900, lng:-5.9877, price:'€12', link:'https://fundacionmedinaceli.org/en/monuments/house-of-pilate/'},
+          {name:'Archivo de Indias', lat:37.3844, lng:-5.9938, price:null},
+          {name:'Tablao Los Gallos (flamenco)', lat:37.3833, lng:-5.9884, price:'€38', link:'https://www.tablaolosgallos.com/entradas-flamenco/'}
+        ]},
+      { num:7, title:'Triana e rio', blurb:'Plaza de España, Parque de María Luisa e travessia até Triana.',
+        points:[
+          {name:'Plaza de España', lat:37.3772, lng:-5.9869, price:null},
+          {name:'Parque de María Luisa', lat:37.3745, lng:-5.9880, price:null},
+          {name:'Mercado de Triana', lat:37.3838, lng:-6.0032, price:null, note:'Entrada livre'}
+        ]},
+      { num:8, title:'Córdoba (bate-volta)', blurb:'Trem AVE de ~45 min. Mezquita, Judería e Alcázar de los Reyes Cristianos.',
+        points:[
+          {name:'Mezquita-Catedral de Córdoba', lat:37.8790, lng:-4.7794, price:'€15', link:'https://mezquita-catedraldecordoba.es/en/organiza-la-visita/entradas-y-horarios/'},
+          {name:'Judería (Calleja de las Flores)', lat:37.8794, lng:-4.7797, price:null},
+          {name:'Puente Romano', lat:37.8763, lng:-4.7794, price:null},
+          {name:'Alcázar de los Reyes Cristianos', lat:37.8778, lng:-4.7815, price:'€5', link:'https://museosdecordoba.sacatuentrada.es/es'}
+        ]}
+    ]
+  },
+  {
+    city:'Madri & Toledo', id:'madri', range:'Dias 9–14',
+    days:[
+      { num:9, title:'Chegada em Madri', blurb:'Puerta del Sol, Plaza Mayor e Mercado de San Miguel.',
+        points:[
+          {name:'Puerta del Sol', lat:40.4169, lng:-3.7033, price:null},
+          {name:'Plaza Mayor', lat:40.4155, lng:-3.7074, price:null},
+          {name:'Mercado de San Miguel', lat:40.4153, lng:-3.7091, price:null, note:'Entrada livre'}
+        ]},
+      { num:10, title:'Centro real', blurb:'Palácio Real, Gran Vía e o mirador do Círculo de Bellas Artes.',
+        points:[
+          {name:'Palácio Real', lat:40.4180, lng:-3.7143, price:'€18', link:'https://tickets.patrimonionacional.es/en/tickets/palacio-real-de-madrid'},
+          {name:'Catedral de la Almudena', lat:40.4155, lng:-3.7147, price:null},
+          {name:'Gran Vía / Callao', lat:40.4200, lng:-3.7052, price:null},
+          {name:'Círculo de Bellas Artes (azotea)', lat:40.4168, lng:-3.6975, price:'€5,50', link:'https://www.circulobellasartes.com'},
+          {name:'Templo de Debod', lat:40.4238, lng:-3.7178, price:null}
+        ]},
+      { num:11, title:'Triângulo do Prado', blurb:'Prado, Thyssen e Retiro — tudo a poucos minutos a pé.',
+        points:[
+          {name:'Museo del Prado', lat:40.4138, lng:-3.6921, price:'€15', link:'https://entradas.museodelprado.es/'},
+          {name:'Museo Thyssen-Bornemisza', lat:40.4162, lng:-3.6942, price:'€14', link:'https://entradas.museothyssen.org/'},
+          {name:'Parque del Retiro', lat:40.4153, lng:-3.6844, price:null}
+        ]},
+      { num:12, title:'Reina Sofía e bairros', blurb:'Guernica de Picasso, depois Malasaña e Chueca.',
+        points:[
+          {name:'Museo Reina Sofía', lat:40.4079, lng:-3.6943, price:'€12', link:'https://entradas.museoreinasofia.es/'},
+          {name:'Malasaña (Pl. Dos de Mayo)', lat:40.4258, lng:-3.7027, price:null},
+          {name:'Chueca / Salesas', lat:40.4227, lng:-3.6962, price:null}
+        ]},
+      { num:13, title:'Dia livre', blurb:'Se cair domingo: El Rastro pela manhã + tapeo em La Latina.',
+        points:[
+          {name:'El Rastro', lat:40.4088, lng:-3.7075, price:null, note:'Feira de rua — só domingo de manhã'},
+          {name:'La Latina (Cava Baja)', lat:40.4113, lng:-3.7096, price:null}
+        ]},
+      { num:14, title:'Toledo (bate-volta)', blurb:'Trem de ~30 min. Táxi da estação até o Mirador del Valle, depois centro histórico a pé.',
+        points:[
+          {name:'Mirador del Valle', lat:39.8536, lng:-4.0231, price:null},
+          {name:'Catedral de Toledo', lat:39.8578, lng:-4.0244, price:'€12', link:'https://www.catedralprimada.es/visita-cultural/entradas-catedral-toledo/'},
+          {name:'Alcázar de Toledo (Museu do Exército)', lat:39.8590, lng:-4.0219, price:null, note:'Verificar tarifa atual no local'},
+          {name:'Sinagoga de Santa María la Blanca', lat:39.8593, lng:-4.0294, price:'€4', link:'https://toledomonumental.com/sinagoga-de-santa-maria-la-blanca/'}
+        ]}
+    ]
+  },
+  {
+    city:'Barcelona', id:'bcn-volta', range:'Dias 15–17',
+    days:[
+      { num:15, title:'Chegada em Barcelona', blurb:'Passeio leve pela Barceloneta ao entardecer.',
+        points:[ {name:'Barceloneta', lat:41.3784, lng:2.1925, price:null} ] },
+      { num:16, title:'Dia livre — Gràcia', blurb:'Bairro logo abaixo de Park Güell, com calma, para o último dia.',
+        points:[ {name:'Gràcia (Plaça del Sol)', lat:41.4036, lng:2.1567, price:null} ] },
+      { num:17, title:'Embarque', blurb:'Manhã de saída para o aeroporto — sem passeios previstos.', points:[] }
+    ]
+  }
+];
+
+function popupHTML(p){
+  const priceLine = p.price
+    ? `<div class="pp-price">${p.price}</div>`
+    : `<div class="pp-price pp-free">Gratuito</div>`;
+  const noteLine = p.note ? `<div class="pp-note">${p.note}</div>` : '';
+  const linkBtn = p.link ? `<a class="pp-link" href="${p.link}" target="_blank" rel="noopener">Comprar ingresso →</a>` : '';
+  return `<div class="popup"><div class="pp-name">${p.name}</div>${priceLine}${noteLine}${linkBtn}</div>`;
+}
+
+function makeIcon(num, paid){
+  return L.divIcon({
+    className:'',
+    html:`<div class="plnum ${paid?'paid':'free'}" style="width:26px;height:26px;font-size:11px;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35);">${num}</div>`,
+    iconSize:[26,26], iconAnchor:[13,13], popupAnchor:[0,-13]
+  });
+}
+
+const nav = document.getElementById('cityNav');
+const main = document.getElementById('main');
+let mapCounter = 0;
+const pendingMaps = [];
+
+DATA.forEach(section=>{
+  const navA = document.createElement('a');
+  navA.href = '#'+section.id;
+  navA.textContent = section.city.toUpperCase()+' · '+section.range;
+  nav.appendChild(navA);
+
+  const block = document.createElement('section');
+  block.className = 'city-block';
+  block.id = section.id;
+
+  const head = document.createElement('div');
+  head.className = 'city-head';
+  head.innerHTML = `<h2>${section.city}</h2><span class="range mono">${section.range}</span>`;
+  block.appendChild(head);
+
+  section.days.forEach(day=>{
+    const card = document.createElement('div');
+    card.className = 'day-card';
+
+    const info = document.createElement('div');
+    info.className = 'day-info';
+    info.innerHTML = `<div class="day-num">${String(day.num).padStart(2,'0')}</div><h3>${day.title}</h3><p class="day-blurb">${day.blurb}</p>`;
+    card.appendChild(info);
+
+    const divider = document.createElement('div');
+    divider.className = 'stub-divider';
+    card.appendChild(divider);
+
+    const body = document.createElement('div');
+    body.className = 'day-body';
+
+    if(day.points.length === 0){
+      body.innerHTML = `<p class="no-map-note">Sem pontos fixos neste dia.</p>`;
+    } else {
+      mapCounter++;
+      const mapId = 'map-'+mapCounter;
+      const mapDiv = document.createElement('div');
+      mapDiv.className = 'map';
+      mapDiv.id = mapId;
+      body.appendChild(mapDiv);
+
+      const list = document.createElement('ol');
+      list.className = 'points-list';
+      day.points.forEach((p,i)=>{
+        const li = document.createElement('li');
+        const priceHTML = p.price
+          ? `<span class="plprice paid">${p.price}</span>`
+          : `<span class="plprice free">Gratuito</span>`;
+        const linkHTML = p.link ? `<a class="plbuy" href="${p.link}" target="_blank" rel="noopener">comprar →</a>` : '';
+        li.innerHTML = `<span class="plnum ${p.price?'paid':'free'}">${i+1}</span><span class="plname">${p.name}</span>${priceHTML}${linkHTML}`;
+        list.appendChild(li);
+      });
+      body.appendChild(list);
+
+      pendingMaps.push({mapId, points:day.points});
+    }
+
+    card.appendChild(body);
+    block.appendChild(card);
+  });
+
+  main.appendChild(block);
+});
+
+pendingMaps.forEach(({mapId, points})=>{
+  const map = L.map(mapId, { scrollWheelZoom:false, zoomControl:true });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    subdomains:'abcd', maxZoom:19,
+    attribution:'&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(map);
+
+  const latlngs = points.map(p=>[p.lat,p.lng]);
+  points.forEach((p,i)=>{
+    L.marker([p.lat,p.lng], {icon: makeIcon(i+1, !!p.price)})
+      .addTo(map)
+      .bindPopup(popupHTML(p));
+  });
+
+  if(latlngs.length > 1){
+    L.polyline(latlngs, {color:'#16233A', weight:2, dashArray:'4 7', opacity:.45}).addTo(map);
+    map.fitBounds(L.latLngBounds(latlngs), {padding:[28,28]});
+  } else {
+    map.setView(latlngs[0], 15);
+  }
+});
+</script>
+</body>
+</html>
